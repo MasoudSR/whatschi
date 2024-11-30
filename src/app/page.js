@@ -1,101 +1,138 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+	const [phoneNumber, setPhoneNumber] = useState();
+	const [countryCode, setCountryCode] = useState("+98");
+	const [contactDetails, setContactDetails] = useState({});
+	const [page, setPage] = useState("home");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+	const countryOptions = [
+		{ code: "+98", country: "Iran" },
+		{ code: "+90", country: "Turkey" },
+		{ code: "+971", country: "UAE" },
+		{ code: "+86", country: "China" },
+		{ code: "+81", country: "Japan" },
+		{ code: "+1", country: "USA" },
+		{ code: "+44", country: "UK" },
+		{ code: "+49", country: "Germany" },
+		{ code: "+33", country: "France" },
+		{ code: "+61", country: "Australia" },
+	];
+
+	const numberHandler = () => {
+		if (!countryCode) {
+			alert("Country Code Missing");
+			return;
+		}
+		if (!phoneNumber) {
+			alert("Phone Number Missing");
+			return;
+		}
+
+		let formattedCountryCode = countryCode;
+		if (countryCode.startsWith("00")) {
+			formattedCountryCode = `+${countryCode.slice(2)}`;
+		} else if (!countryCode.startsWith("+")) {
+			formattedCountryCode = `+${countryCode}`;
+		}
+
+		const countryCodeRegex = /^\+([1-9]\d{0,2})$/;
+
+		if (!countryCodeRegex.test(formattedCountryCode)) {
+			alert("Country Code Invalid");
+			return;
+		}
+
+		let formattedPhoneNumber = phoneNumber;
+		if (phoneNumber.startsWith("0")) {
+			formattedPhoneNumber = phone.slice(1);
+		}
+
+		const phoneNumberRegex = /^\d{9,15}$/;
+
+		if (!phoneNumberRegex.test(formattedPhoneNumber)) {
+			alert("Phone Number Invalid");
+			return;
+		}
+
+		const formattedNumber = formattedCountryCode + formattedPhoneNumber;
+
+		const link = `https://wa.me/${formattedNumber}`;
+
+		setContactDetails({ name: formattedNumber, number: formattedNumber, link: link });
+	};
+
+	const getSelectValue = () => {
+		let formattedCountryCode = countryCode;
+		if (countryCode.startsWith("00")) {
+			formattedCountryCode = `+${countryCode.slice(2)}`;
+		} else if (!countryCode.startsWith("+")) {
+			formattedCountryCode = `+${countryCode}`;
+		}
+		const matchedCountry = countryOptions.find((option) => option.code === formattedCountryCode);
+		return matchedCountry ? formattedCountryCode : "";
+	};
+
+	return (
+		<div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+			<main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+				<div>WhatsChi</div>
+				<div className="flex flex-col gap-3 items-center">
+					<div>
+						<select
+							value={getSelectValue()}
+							onChange={(e) => setCountryCode(e.target.value)}
+							className="border p-2 rounded w-24">
+							{countryOptions.map((c) => (
+								<option key={c.code} value={c.code}>
+									{c.country}
+								</option>
+							))}
+							<option value="">Manual</option>
+						</select>
+						<input
+							type="text"
+							className="border p-2 rounded w-24 ml-2"
+							placeholder="+98"
+							value={countryCode}
+							onChange={(e) => {
+								setCountryCode(e.target.value);
+							}}
+						/>
+
+						<input
+							type="tel"
+							className="bg-green-300 shadow-inner py-2 px-1 rounded-md"
+							placeholder="9121234567"
+							onChange={(e) => setPhoneNumber(e.target.value)}
+						/>
+					</div>
+					<button className="w-36 h-16 rounded-[2rem] bg-green-300 text-green-800" onClick={numberHandler}>
+						OK
+					</button>
+				</div>
+				<div
+					className={`border border-green-500 bg-green-400 rounded-2xl overflow-hidden m-auto w-64 transition-all duration-300 ${
+						contactDetails.link ? "scale-100" : "scale-0"
+					}`}>
+					<div className="p-3 bg-white">
+						<div>{contactDetails.name}</div>
+						<div className="text-slate-400 text-xs">{contactDetails.number}</div>
+					</div>
+					<div className="p-3 flex justify-between">
+						<a href={contactDetails.link} target="_blank">
+							<button>open</button>
+						</a>
+						<button>save</button>
+					</div>
+				</div>
+			</main>
+			<footer className="row-start-3 justify-around flex gap-6 items-center bg-green-200 p-4 rounded-3xl drop-shadow-sm w-full">
+				<div className="">Home</div>
+				<div>Saved</div>
+			</footer>
+		</div>
+	);
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import loadStorage from "@/helpers/loadStorage";
+import saveStorage from "@/helpers/saveStorage";
 import { useState } from "react";
 
 export default function Home() {
@@ -75,6 +77,13 @@ export default function Home() {
 	// 	return matchedCountry ? formattedCountryCode : "";
 	// };
 
+	const saveHandler = ()=>{
+		console.log(contactDetails);
+		const contactsData = loadStorage()
+		contactsData.contacts.push(contactDetails)
+		saveStorage(contactsData)
+	}
+
 	return (
 		<div className="flex flex-col min-h-screen justify-center items-center gap-3 p-3">
 				<div className="flex flex-col items-center gap-3 w-full p-3 bg-green-400 rounded-lg">
@@ -124,7 +133,7 @@ export default function Home() {
 					<a href={contactDetails.link} target="_blank">
 						<button>open</button>
 					</a>
-					<button>save</button>
+					<button onClick={saveHandler}>save</button>
 				</div>
 			</div>
 		</div>

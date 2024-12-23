@@ -64,37 +64,36 @@ export default function Home() {
 		setContactDetails({ name: formattedNumber, number: formattedNumber, link: link });
 	};
 
-	const getSelectValue = () => {
-		let formattedCountryCode = countryCode;
-		if (countryCode.startsWith("00")) {
-			formattedCountryCode = `+${countryCode.slice(2)}`;
-		} else if (!countryCode.startsWith("+")) {
-			formattedCountryCode = `+${countryCode}`;
-		}
-		const matchedCountry = countryOptions.find((option) => option.code === formattedCountryCode);
-		return matchedCountry ? formattedCountryCode : "";
-	};
+	// const getSelectValue = () => {
+	// 	let formattedCountryCode = countryCode;
+	// 	if (countryCode.startsWith("00")) {
+	// 		formattedCountryCode = `+${countryCode.slice(2)}`;
+	// 	} else if (!countryCode.startsWith("+")) {
+	// 		formattedCountryCode = `+${countryCode}`;
+	// 	}
+	// 	const matchedCountry = countryOptions.find((option) => option.code === formattedCountryCode);
+	// 	return matchedCountry ? formattedCountryCode : "";
+	// };
 
 	return (
-		<div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-			<main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-				<div>WhatsChi</div>
-				<div className="flex flex-col gap-3 items-center">
-					<div>
-						<select
+		<div className="flex flex-col min-h-screen justify-center items-center gap-3 p-3">
+				<div className="flex flex-col items-center gap-3 w-full p-3 bg-green-400 rounded-lg">
+					<p className="self-start text-gray-700">Enter Phone Number:</p>
+					<div className="flex w-full">
+						{/* <select
 							value={getSelectValue()}
 							onChange={(e) => setCountryCode(e.target.value)}
 							className="border p-2 rounded w-24">
 							{countryOptions.map((c) => (
 								<option key={c.code} value={c.code}>
-									{c.country}
+								{c.country}
 								</option>
-							))}
-							<option value="">Manual</option>
-						</select>
+								))}
+								<option value="">Manual</option>
+								</select> */}
 						<input
 							type="text"
-							className="border p-2 rounded w-24 ml-2"
+							className="p-2 rounded-l-md w-16 border-r"
 							placeholder="+98"
 							value={countryCode}
 							onChange={(e) => {
@@ -104,35 +103,30 @@ export default function Home() {
 
 						<input
 							type="tel"
-							className="bg-green-300 shadow-inner py-2 px-1 rounded-md"
+							className=" w-[100%] py-2 pl-4 px-1 rounded-r-md"
 							placeholder="9121234567"
 							onChange={(e) => setPhoneNumber(e.target.value)}
 						/>
 					</div>
-					<button className="w-36 h-16 rounded-[2rem] bg-green-300 text-green-800" onClick={numberHandler}>
+					<button className="w-36 h-16 rounded-[2rem] bg-white text-green-800" onClick={numberHandler}>
 						OK
 					</button>
 				</div>
-				<div
-					className={`border border-green-500 bg-green-400 rounded-2xl overflow-hidden m-auto w-64 transition-all duration-300 ${
-						contactDetails.link ? "scale-100" : "scale-0"
-					}`}>
-					<div className="p-3 bg-white">
-						<div>{contactDetails.name}</div>
-						<div className="text-slate-400 text-xs">{contactDetails.number}</div>
-					</div>
-					<div className="p-3 flex justify-between">
-						<a href={contactDetails.link} target="_blank">
-							<button>open</button>
-						</a>
-						<button>save</button>
-					</div>
+			<div
+				className={`border border-green-500 bg-green-400 rounded-2xl overflow-hidden w-64 transition-all duration-300 ${
+					contactDetails.link ? "scale-100" : "scale-0"
+				}`}>
+				<div className="p-3 bg-white">
+					<div>{contactDetails.name}</div>
+					<div className="text-slate-400 text-xs">{contactDetails.number}</div>
 				</div>
-			</main>
-			<footer className="row-start-3 justify-around flex gap-6 items-center bg-green-200 p-4 rounded-3xl drop-shadow-sm w-full">
-				<div className="">Home</div>
-				<div>Saved</div>
-			</footer>
+				<div className="p-3 flex justify-between">
+					<a href={contactDetails.link} target="_blank">
+						<button>open</button>
+					</a>
+					<button>save</button>
+				</div>
+			</div>
 		</div>
 	);
 }

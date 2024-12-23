@@ -1,5 +1,7 @@
 "use client";
 
+import ContactsPage from "@/components/ContactsPage";
+import MenuBar from "@/components/MenuBar";
 import loadStorage from "@/helpers/loadStorage";
 import saveStorage from "@/helpers/saveStorage";
 import { useState } from "react";
@@ -77,19 +79,22 @@ export default function Home() {
 	// 	return matchedCountry ? formattedCountryCode : "";
 	// };
 
-	const saveHandler = ()=>{
+	const saveHandler = () => {
 		console.log(contactDetails);
-		const contactsData = loadStorage()
-		contactsData.contacts.push(contactDetails)
-		saveStorage(contactsData)
-	}
+		const contactsData = loadStorage();
+		contactsData.contacts.push(contactDetails);
+		saveStorage(contactsData);
+	};
 
 	return (
-		<div className="flex flex-col min-h-screen justify-center items-center gap-3 p-3">
-				<div className="flex flex-col items-center gap-3 w-full p-3 bg-green-400 rounded-lg">
-					<p className="self-start text-gray-700">Enter Phone Number:</p>
-					<div className="flex w-full">
-						{/* <select
+		<>
+			<MenuBar page={page} setPage={setPage} />
+			{page === "home" ? (
+				<div className="flex flex-col min-h-screen justify-center items-center gap-3 p-3">
+					<div className="flex flex-col items-center gap-3 w-full p-3 bg-green-400 rounded-lg">
+						<p className="self-start text-gray-700">Enter Phone Number:</p>
+						<div className="flex w-full">
+							{/* <select
 							value={getSelectValue()}
 							onChange={(e) => setCountryCode(e.target.value)}
 							className="border p-2 rounded w-24">
@@ -100,42 +105,46 @@ export default function Home() {
 								))}
 								<option value="">Manual</option>
 								</select> */}
-						<input
-							type="text"
-							className="p-2 rounded-l-md w-16 border-r"
-							placeholder="+98"
-							value={countryCode}
-							onChange={(e) => {
-								setCountryCode(e.target.value);
-							}}
-						/>
+							<input
+								type="text"
+								className="p-2 rounded-l-md w-16 border-r"
+								placeholder="+98"
+								value={countryCode}
+								onChange={(e) => {
+									setCountryCode(e.target.value);
+								}}
+							/>
 
-						<input
-							type="tel"
-							className=" w-[100%] py-2 pl-4 px-1 rounded-r-md"
-							placeholder="9121234567"
-							onChange={(e) => setPhoneNumber(e.target.value)}
-						/>
+							<input
+								type="tel"
+								className=" w-[100%] py-2 pl-4 px-1 rounded-r-md"
+								placeholder="9121234567"
+								onChange={(e) => setPhoneNumber(e.target.value)}
+							/>
+						</div>
+						<button className="w-36 h-16 rounded-[2rem] bg-white text-green-800" onClick={numberHandler}>
+							OK
+						</button>
 					</div>
-					<button className="w-36 h-16 rounded-[2rem] bg-white text-green-800" onClick={numberHandler}>
-						OK
-					</button>
+					<div
+						className={`border border-green-500 bg-green-400 rounded-2xl overflow-hidden w-64 transition-all duration-300 ${
+							contactDetails.link ? "scale-100" : "scale-0"
+						}`}>
+						<div className="p-3 bg-white">
+							<div>{contactDetails.name}</div>
+							<div className="text-slate-400 text-xs">{contactDetails.number}</div>
+						</div>
+						<div className="p-3 flex justify-between">
+							<a href={contactDetails.link} target="_blank">
+								<button>open</button>
+							</a>
+							<button onClick={saveHandler}>save</button>
+						</div>
+					</div>
 				</div>
-			<div
-				className={`border border-green-500 bg-green-400 rounded-2xl overflow-hidden w-64 transition-all duration-300 ${
-					contactDetails.link ? "scale-100" : "scale-0"
-				}`}>
-				<div className="p-3 bg-white">
-					<div>{contactDetails.name}</div>
-					<div className="text-slate-400 text-xs">{contactDetails.number}</div>
-				</div>
-				<div className="p-3 flex justify-between">
-					<a href={contactDetails.link} target="_blank">
-						<button>open</button>
-					</a>
-					<button onClick={saveHandler}>save</button>
-				</div>
-			</div>
-		</div>
+			) : (
+				<ContactsPage />
+			)}
+		</>
 	);
 }

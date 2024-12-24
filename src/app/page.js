@@ -43,13 +43,17 @@ export default function Home() {
 	// };
 
 	return (
-		<div className="flex flex-col min-h-screen">
+		<>
 			<MenuBar page={page} setPage={setPage} />
-			{page === "home" ? (
+		<div className="overflow-x-hidden">
+			<div className={`flex w-[200vw] ${page !== "home" ? "animate-smoothMoveLeft" : "animate-smoothMoveRight"}`}>
+
 				<HomePage contacts={contacts} setContacts={setContacts} />
-			) : (
+			
 				<ContactsPage contacts={contacts} setContacts={setContacts} />
-			)}
+			</div>
+			
 		</div>
+			</>
 	);
 }

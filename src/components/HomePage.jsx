@@ -91,7 +91,7 @@ function HomePage({ contacts, setContacts }) {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center gap-3 p-3">
+        <div className="flex flex-col justify-center items-center gap-3 p-3 w-screen">
             <div className="flex flex-col items-center gap-3 flex-1 h-full p-3 bg-green-400 rounded-lg">
                 <p className="self-start text-gray-700">Enter Phone Number:</p>
                 <div className="flex w-full">

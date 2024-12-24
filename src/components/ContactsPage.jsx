@@ -14,7 +14,7 @@ function ContactsPage({ contacts, setContacts }) {
     }
 
     return (
-        <div className='flex flex-col items-center gap-4 mt-4'>
+        <div className='flex flex-col items-center gap-4 mt-4 w-screen'>
             {contacts.length ?
                 contacts.map(contact => <ContactCard key={contact.number} contact={contact} removeHandler={removeHandler} />)
                 :

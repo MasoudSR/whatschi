@@ -1,7 +1,8 @@
+import loadStorage from '@/helpers/loadStorage';
+import saveStorage from '@/helpers/saveStorage';
 import React from 'react'
 
-function ContactCard({ contact }) {
-    const removeHandler = () => { }
+function ContactCard({ contact, removeHandler }) {
 
     return (
         <div
@@ -14,7 +15,7 @@ function ContactCard({ contact }) {
                 <a href={contact.link} target="_blank">
                     <button>open</button>
                 </a>
-                <button onClick={removeHandler}>remove</button>
+                <button onClick={() => removeHandler(contact.id)}>remove</button>
             </div>
         </div>
     )

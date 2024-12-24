@@ -3,17 +3,11 @@ import React, { useEffect, useState } from 'react'
 import ContactCard from './ContactCard'
 import saveStorage from '@/helpers/saveStorage'
 
-function ContactsPage() {
-    const [contacts, setContacts] = useState([])
+function ContactsPage({ contacts, setContacts }) {
 
-    useEffect(() => {
-        const contactsData = loadStorage()
-        setContacts(contactsData.contacts)
-    }, [])
-
-    const removeHandler = (contactId) => {
+    const removeHandler = (contactNumber) => {
         const contactsData = loadStorage();
-        const newContacts = contactsData.contacts.filter((item) => item.id !== contactId);
+        const newContacts = contactsData.contacts.filter((item) => item.number !== contactNumber);
         contactsData.contacts = newContacts;
         saveStorage(contactsData);
         setContacts(newContacts)
@@ -22,7 +16,7 @@ function ContactsPage() {
     return (
         <div className='flex flex-col items-center gap-4 mt-4'>
             {contacts.length ?
-                contacts.map(contact => <ContactCard key={contact.id} contact={contact} removeHandler={removeHandler} />)
+                contacts.map(contact => <ContactCard key={contact.number} contact={contact} removeHandler={removeHandler} />)
                 :
                 "You have no saved contact"}
         </div>

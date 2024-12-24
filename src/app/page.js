@@ -3,11 +3,20 @@
 import ContactsPage from "@/components/ContactsPage";
 import HomePage from "@/components/HomePage";
 import MenuBar from "@/components/MenuBar";
+import loadStorage from "@/helpers/loadStorage";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
 	const [page, setPage] = useState("home");
+
+	const [contacts, setContacts] = useState([]);
+
+	useEffect(() => {
+		const contactsData = loadStorage();
+		console.log(contactsData.contacts);
+		setContacts(contactsData.contacts);
+	}, []);
 
 	const countryOptions = [
 		{ code: "+98", country: "Iran" },
@@ -36,7 +45,11 @@ export default function Home() {
 	return (
 		<div className="flex flex-col min-h-screen">
 			<MenuBar page={page} setPage={setPage} />
-			{page === "home" ? <HomePage /> : <ContactsPage />}
+			{page === "home" ? (
+				<HomePage contacts={contacts} setContacts={setContacts} />
+			) : (
+				<ContactsPage contacts={contacts} setContacts={setContacts} />
+			)}
 		</div>
 	);
 }

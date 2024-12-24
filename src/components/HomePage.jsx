@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiSolidUserCheck, BiSolidUserPlus, BiSolidUserX } from 'react-icons/bi';
 import loadStorage from "@/helpers/loadStorage";
 import saveStorage from "@/helpers/saveStorage";
 import { nanoid } from "nanoid";
 
-function HomePage() {
+function HomePage({ contacts, setContacts }) {
 
     const [phoneNumber, setPhoneNumber] = useState();
     const [countryCode, setCountryCode] = useState("+98");
@@ -52,8 +52,14 @@ function HomePage() {
 
         const link = `https://wa.me/${formattedNumber}`;
 
-        setContactDetails({ id: nanoid(), name: formattedNumber, number: formattedNumber, link: link });
-        setSaveStatus("add");
+        const existContact = contacts.find(item => item.number === formattedNumber)
+        if (existContact) {
+            setContactDetails(existContact);
+            setSaveStatus("remove");
+        } else {
+            setContactDetails({ name: formattedNumber, number: formattedNumber, link: link });
+            setSaveStatus("add");
+        }
     };
 
     const handleContactAction = () => {
@@ -65,11 +71,10 @@ function HomePage() {
     };
 
     const saveHandler = () => {
-        // const id = nanoid();
-        // setContactDetails({ ...contactDetails, id: id });
         const contactsData = loadStorage();
         contactsData.contacts.push(contactDetails);
         saveStorage(contactsData);
+        setContacts(contactsData.contacts)
         setSaveStatus("added");
         setTimeout(() => {
             setSaveStatus("remove");
@@ -78,9 +83,10 @@ function HomePage() {
 
     const removeHandler = () => {
         const contactsData = loadStorage();
-        const newContacts = contactsData.contacts.filter((contact) => contact.id !== contactDetails.id);
+        const newContacts = contactsData.contacts.filter((contact) => contact.number !== contactDetails.number);
         contactsData.contacts = newContacts;
         saveStorage(contactsData);
+        setContacts(contactsData.contacts)
         setSaveStatus("add");
     };
 

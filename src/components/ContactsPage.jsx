@@ -1,5 +1,4 @@
 import loadStorage from '@/helpers/loadStorage'
-import React, { useEffect, useState } from 'react'
 import ContactCard from './ContactCard'
 import saveStorage from '@/helpers/saveStorage'
 
@@ -14,7 +13,7 @@ function ContactsPage({ contacts, setContacts }) {
     }
 
     return (
-        <div className='flex flex-col items-center gap-4 mt-4 w-screen'>
+        <div className='flex flex-col items-center gap-4 pt-20 md:pt-24 pb-4 w-screen h-screen overflow-auto'>
             {contacts.length ?
                 contacts.map(contact => <ContactCard key={contact.number} contact={contact} removeHandler={removeHandler} />)
                 :

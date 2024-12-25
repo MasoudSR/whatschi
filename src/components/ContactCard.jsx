@@ -2,7 +2,7 @@ function ContactCard({ contact, removeHandler }) {
 
     return (
         <div
-            className={`border border-green-500 bg-green-400 rounded-2xl overflow-hidden w-64 transition-all duration-300`}>
+            className={`border shrink-0 border-green-500 bg-green-400 rounded-2xl overflow-hidden w-64 transition-all duration-300`}>
             <div className="p-3 bg-white">
                 <div>{contact.name}</div>
                 <div className="text-slate-400 text-xs">{contact.number}</div>

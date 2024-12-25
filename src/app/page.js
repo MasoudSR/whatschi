@@ -18,42 +18,15 @@ export default function Home() {
 		setContacts(contactsData.contacts);
 	}, []);
 
-	const countryOptions = [
-		{ code: "+98", country: "Iran" },
-		{ code: "+90", country: "Turkey" },
-		{ code: "+971", country: "UAE" },
-		{ code: "+86", country: "China" },
-		{ code: "+81", country: "Japan" },
-		{ code: "+1", country: "USA" },
-		{ code: "+44", country: "UK" },
-		{ code: "+49", country: "Germany" },
-		{ code: "+33", country: "France" },
-		{ code: "+61", country: "Australia" },
-	];
-
-	// const getSelectValue = () => {
-	// 	let formattedCountryCode = countryCode;
-	// 	if (countryCode.startsWith("00")) {
-	// 		formattedCountryCode = `+${countryCode.slice(2)}`;
-	// 	} else if (!countryCode.startsWith("+")) {
-	// 		formattedCountryCode = `+${countryCode}`;
-	// 	}
-	// 	const matchedCountry = countryOptions.find((option) => option.code === formattedCountryCode);
-	// 	return matchedCountry ? formattedCountryCode : "";
-	// };
-
 	return (
-		<>
-			<MenuBar page={page} setPage={setPage} />
-		<div className="overflow-x-hidden">
-			<div className={`flex w-[200vw] ${page !== "home" ? "animate-smoothMoveLeft" : "animate-smoothMoveRight"}`}>
-
+		<div className="overflow-hidden bg-green-50">
+			<div>
+				<MenuBar page={page} setPage={setPage} />
+			</div>
+			<div className={`flex w-[200vw]  ${page !== "home" ? "animate-smoothMoveLeft" : "animate-smoothMoveRight"}`}>
 				<HomePage contacts={contacts} setContacts={setContacts} />
-			
 				<ContactsPage contacts={contacts} setContacts={setContacts} />
 			</div>
-			
 		</div>
-			</>
 	);
 }

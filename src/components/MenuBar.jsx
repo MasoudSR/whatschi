@@ -3,7 +3,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 
 function MenuBar({ page, setPage }) {
     return (
-        <div className="flex w-full text-white select-none max-w-screen-md m-auto md:p-3">
+        <div className="flex w-full text-white select-none max-w-screen-md m-auto md:p-3 fixed top-0 left-[50%] -translate-x-[50%] z-20">
             <div className="grid grid-cols-3 bg-green-700 w-full text-center justify-items-center drop-shadow-sm items-center p-3 shadow-md md:rounded-full md:px-5">
                 <div className='justify-self-start'>Whatschi</div>
                 <div className='flex bg-green-800 rounded-3xl shadow-inner text-xs px-[3px]'>

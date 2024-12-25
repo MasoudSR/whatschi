@@ -1,4 +1,5 @@
 import { BiSolidUserX } from "react-icons/bi"
+import { FaWhatsapp } from "react-icons/fa"
 
 function ContactCard({ contact, removeHandler }) {
 
@@ -11,13 +12,10 @@ function ContactCard({ contact, removeHandler }) {
             </div>
             <div className="p-3 flex gap-6 justify-between">
                 <a href={contact.link} target="_blank" className='w-full p-3 shadow-sm shadow-green-300 rounded-[2rem] bg-green-500 text-white text-center'>
-                    <button>Open WhatsApp</button>
+                    <button className='flex justify-center items-center m-auto gap-1'>Open WhatsApp<FaWhatsapp size={20} /></button>
                 </a>
-                {/* <a href={contact.link} target="_blank">
-                    <button>open</button>
-                </a> */}
                 <button className='border py-2 px-3 rounded-2xl' onClick={() => removeHandler(contact.number)}>
-                   <BiSolidUserX size={26} />
+                    <BiSolidUserX size={26} />
                 </button>
             </div>
         </div>

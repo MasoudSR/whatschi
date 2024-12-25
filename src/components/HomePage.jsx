@@ -3,6 +3,7 @@ import { BiSolidUserCheck, BiSolidUserPlus, BiSolidUserX } from 'react-icons/bi'
 import loadStorage from "@/helpers/loadStorage";
 import saveStorage from "@/helpers/saveStorage";
 import { LuRotateCcwSquare } from "react-icons/lu";
+import { FaWhatsapp } from "react-icons/fa";
 
 function HomePage({ contacts, setContacts }) {
 
@@ -170,8 +171,8 @@ function HomePage({ contacts, setContacts }) {
                         </div>
                         <div className='px-5 py-4 w-full flex justify-between gap-4'>
 
-                            <a href={contactDetails.link} target="_blank" className='w-full p-3 shadow-sm shadow-green-300 rounded-[2rem] bg-green-500 text-white text-center'>
-                                <button>Open WhatsApp</button>
+                            <a href={contactDetails.link} target="_blank" className='w-full p-3 shadow-sm shadow-green-300 rounded-[2rem] bg-green-500 text-white'>
+                                <button className='flex justify-center items-center m-auto gap-1'>Open WhatsApp<FaWhatsapp size={20} /></button>
                             </a>
                             <button onClick={handleContactAction} className='border py-2 px-3 rounded-2xl'>
                                 {saveStatus === "add" && <BiSolidUserPlus size={26} />}

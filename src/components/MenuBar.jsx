@@ -12,7 +12,7 @@ function MenuBar({ page, setPage }) {
                 </div>
                 <div className={`transition-all absolute bg-slate-200 h-[26px] w-[72px] rounded-3xl shadow-sm ${page === "home" ? " -translate-x-[34px]" : "translate-x-[34px]"}`}></div>
                 <div className='justify-self-end'>
-                    <IoSettingsOutline size={20} color='white' />
+                    {/* <IoSettingsOutline size={20} color='white' /> */}
                 </div>
             </div>
         </div>

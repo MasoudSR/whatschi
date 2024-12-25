@@ -4,6 +4,7 @@ import loadStorage from "@/helpers/loadStorage";
 import saveStorage from "@/helpers/saveStorage";
 import { LuRotateCcwSquare } from "react-icons/lu";
 import { FaWhatsapp } from "react-icons/fa";
+import Image from 'next/image';
 
 function HomePage({ contacts, setContacts }) {
 
@@ -116,7 +117,8 @@ function HomePage({ contacts, setContacts }) {
     };
 
     return (
-        <div className="flex flex-col h-screen justify-center items-center gap-3 p-3 w-screen">
+        <div className="flex flex-col h-screen overflow-x-hidden justify-safe-center items-center gap-3 p-3 w-screen">
+            <Image src="/logo.png" alt='logo' width={200} height={200} className="pointer-events-none" />
             <div className="card w-full max-w-screen-sm">
                 <div className={`card__content relative transition-transform duration-1000 h-[185px] ${contactDetails.link && "flip"}`}>
                     <div className="rounded-3xl border border-gray-200 shadow-2xl shadow-green-300 w-full max-w-screen-sm bg-white card__front absolute top-0 bottom-0 right-0 left-0">

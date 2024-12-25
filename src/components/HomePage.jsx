@@ -5,6 +5,7 @@ import saveStorage from "@/helpers/saveStorage";
 import { LuRotateCcwSquare } from "react-icons/lu";
 import { FaWhatsapp } from "react-icons/fa";
 import Image from 'next/image';
+import { IoChevronBack } from 'react-icons/io5';
 
 function HomePage({ contacts, setContacts }) {
 
@@ -163,13 +164,18 @@ function HomePage({ contacts, setContacts }) {
                             </button>
                         </div>
                     </div>
-                    <div className="rounded-3xl border border-gray-200 shadow-2xl shadow-green-300 w-full max-w-screen-sm bg-white card__back absolute top-0 bottom-0 right-0 left-0">
-                        <div className='p-4 border-b border-[#F4F4F4] w-full flex justify-center items-center h-[105px]'>
-                            <div className="flex flex-col w-full">
+
+                    <div className="flex flex-col rounded-3xl border border-gray-200 shadow-2xl shadow-green-300 w-full max-w-screen-sm bg-white card__back absolute top-0 bottom-0 right-0 left-0">
+                        <div className='p-4 border-b gap-2 border-[#F4F4F4] w-full flex items-center h-full'>
+                            <button className='p-1' onClick={() => { setContactDetails({ ...contactDetails, link: "" }) }}><IoChevronBack size={20} /></button>
+                            <div className='rounded-full w-[50px] h-[50px] bg-gray-100 border border-gray-200 flex justify-center items-center'>{contactDetails.name?.charAt(0) === '+'
+                                ? contactDetails.name?.charAt(contactDetails.name.length - 1)
+                                : contactDetails.name?.charAt(0)}</div>
+                            <div className="flex flex-col">
                                 <div>{contactDetails.name}</div>
                                 <div className="text-slate-400 text-xs">{contactDetails.number}</div>
                             </div>
-                            <button className='p-4 rounded-full border absolute right-7 -top-6 bg-white' onClick={() => { setContactDetails({ ...contactDetails, link: "" }) }}><LuRotateCcwSquare /></button>
+                            {/* <button className='p-4 rounded-full border absolute right-7 -top-6 bg-white' onClick={() => { setContactDetails({ ...contactDetails, link: "" }) }}><LuRotateCcwSquare /></button> */}
                         </div>
                         <div className='px-5 py-4 w-full flex justify-between gap-4'>
 

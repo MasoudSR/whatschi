@@ -14,7 +14,6 @@ export default function Home() {
 
 	useEffect(() => {
 		const contactsData = loadStorage();
-		console.log(contactsData.contacts);
 		setContacts(contactsData.contacts);
 	}, []);
 

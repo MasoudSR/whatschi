@@ -125,7 +125,7 @@ function HomePage({ contacts, setContacts }) {
                 <div className={`card__content relative transition-transform duration-1000 h-[185px] ${contactDetails.link && "flip"}`}>
                     <div className="rounded-3xl border border-gray-200 shadow-2xl shadow-green-300 w-full max-w-screen-sm bg-white card__front absolute top-0 bottom-0 right-0 left-0">
                         <div className='p-4 border-b border-[#F4F4F4] w-full'>
-                            <p className="self-start text-gray-700 text-sm p-3 pt-0">Enter Phone Number:</p>
+                            <p className="self-start text-gray-700 text-sm p-3 pt-0">Enter Phone Number</p>
                             <div className="flex w-full">
                                 {/* <select
                             value={getSelectValue()}

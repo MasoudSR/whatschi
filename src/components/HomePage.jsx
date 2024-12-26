@@ -6,10 +6,11 @@ import { LuRotateCcwSquare } from "react-icons/lu";
 import { FaWhatsapp } from "react-icons/fa";
 import Image from 'next/image';
 import { IoChevronBack } from 'react-icons/io5';
+import { RxCross2 } from "react-icons/rx";
 
 function HomePage({ contacts, setContacts }) {
 
-    const [phoneNumber, setPhoneNumber] = useState();
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [countryCode, setCountryCode] = useState("+98");
     const [contactDetails, setContactDetails] = useState({});
     const [saveStatus, setSaveStatus] = useState("add");
@@ -137,7 +138,7 @@ function HomePage({ contacts, setContacts }) {
                             ))}
                             <option value="">Manual</option>
                         </select> */}
-                                <div className='flex w-full bg-white rounded-full'>
+                                <div className='flex w-full bg-[#F5F5F5] rounded-full items-center'>
                                     <input
                                         type="text"
                                         className="w-16 px-4 py-2 rounded-l-full focus:outline-none bg-[#F5F5F5] border-r"
@@ -153,7 +154,12 @@ function HomePage({ contacts, setContacts }) {
                                         className="w-[100%] px-4 py-2 rounded-r-full focus:outline-none bg-[#F5F5F5]"
                                         placeholder="9121234567"
                                         onChange={(e) => setPhoneNumber(e.target.value)}
+                                        value={phoneNumber}
                                     />
+                                    <button className={`p-3 rounded-full transition-all ${phoneNumber ? "scale-100" : "scale-0"}`}
+                                        onClick={() => setPhoneNumber("")}>
+                                        <RxCross2 color='gray' />
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -175,22 +181,16 @@ function HomePage({ contacts, setContacts }) {
                                 <div>{contactDetails.name}</div>
                                 <div className="text-slate-400 text-xs">{contactDetails.number}</div>
                             </div>
-                            {/* <button className='p-4 rounded-full border absolute right-7 -top-6 bg-white' onClick={() => { setContactDetails({ ...contactDetails, link: "" }) }}><LuRotateCcwSquare /></button> */}
                         </div>
                         <div className='px-5 py-4 w-full flex justify-between gap-4'>
 
                             <a href={contactDetails.link} target="_blank" className='w-full p-3 shadow-sm shadow-green-300 rounded-[2rem] bg-green-500 text-white'>
                                 <button className='flex justify-center items-center m-auto gap-1'>Open WhatsApp<FaWhatsapp size={20} /></button>
                             </a>
-                            {/* <button onClick={handleContactAction} className='border py-2 px-3 rounded-2xl'>
-                                {saveStatus === "add" && <BiSolidUserPlus size={26} />}
-                                {saveStatus === "added" && <BiSolidUserCheck size={26} />}
-                                {saveStatus === "remove" && <BiSolidUserX size={26} />}
-                            </button> */}
                             <button onClick={handleContactAction} className='border w-16 rounded-2xl relative'>
-                               <BiSolidUserPlus size={26} className={`absolute top-[21%] left-[25%] transition-all duration-500 ${saveStatus === "add" ? "scale-100" : "scale-0" }`} />
-                               <BiSolidUserCheck size={26} color='green' className={`absolute top-[21%] left-[25%] transition-all duration-500 ${saveStatus === "added" ? "scale-100" : "scale-0" }`} />
-                               <BiSolidUserX size={26} color='#F95959' className={`absolute top-[21%] left-[25%] transition-all duration-500 ${saveStatus === "remove" ? "scale-100" : "scale-0" }`} />
+                                <BiSolidUserPlus size={26} className={`absolute top-[21%] left-[25%] transition-all duration-500 ${saveStatus === "add" ? "scale-100" : "scale-0"}`} />
+                                <BiSolidUserCheck size={26} color='green' className={`absolute top-[21%] left-[25%] transition-all duration-500 ${saveStatus === "added" ? "scale-100" : "scale-0"}`} />
+                                <BiSolidUserX size={26} color='#F95959' className={`absolute top-[21%] left-[25%] transition-all duration-500 ${saveStatus === "remove" ? "scale-100" : "scale-0"}`} />
                             </button>
                         </div>
                     </div>

@@ -16,7 +16,8 @@ function HomePage({ contacts, setContacts }) {
     const [saveStatus, setSaveStatus] = useState("add");
 
 
-    const numberHandler = () => {
+    const numberHandler = (e) => {
+        e.preventDefault()
         if (!countryCode) {
             alert("Country Code Missing");
             return;
@@ -123,7 +124,7 @@ function HomePage({ contacts, setContacts }) {
             <Image src="/logo.png" alt='logo' width={200} height={200} className="pointer-events-none" />
             <div className="card w-full max-w-screen-sm">
                 <div className={`card__content relative transition-transform duration-1000 h-[185px] ${contactDetails.link && "flip"}`}>
-                    <div className="rounded-3xl border border-gray-200 shadow-2xl shadow-green-300 w-full max-w-screen-sm bg-white card__front absolute top-0 bottom-0 right-0 left-0">
+                    <form onSubmit={numberHandler} className="rounded-3xl border border-gray-200 shadow-2xl shadow-green-300 w-full max-w-screen-sm bg-white card__front absolute top-0 bottom-0 right-0 left-0">
                         <div className='p-4 border-b border-[#F4F4F4] w-full'>
                             <p className="self-start text-gray-700 text-sm p-3 pt-0">Enter Phone Number</p>
                             <div className="flex w-full">
@@ -156,7 +157,7 @@ function HomePage({ contacts, setContacts }) {
                                         onChange={(e) => setPhoneNumber(e.target.value)}
                                         value={phoneNumber}
                                     />
-                                    <button className={`p-3 rounded-full transition-all ${phoneNumber ? "scale-100" : "scale-0"}`}
+                                    <button type='button' className={`p-3 rounded-full transition-all ${phoneNumber ? "scale-100" : "scale-0"}`}
                                         onClick={() => setPhoneNumber("")}>
                                         <RxCross2 color='gray' />
                                     </button>
@@ -164,12 +165,9 @@ function HomePage({ contacts, setContacts }) {
                             </div>
                         </div>
                         <div className='px-5 py-4 w-full'>
-
-                            <button className="w-full p-3 shadow-sm shadow-green-300 rounded-[2rem] bg-green-500 text-white" onClick={numberHandler}>
-                                OK
-                            </button>
+                            <input type="submit" value="Show" className="w-full p-3 shadow-sm shadow-green-300 rounded-[2rem] bg-green-500 text-white" />
                         </div>
-                    </div>
+                    </form>
 
                     <div className="flex flex-col rounded-3xl border border-gray-200 shadow-2xl shadow-green-300 w-full max-w-screen-sm bg-white card__back absolute top-0 bottom-0 right-0 left-0">
                         <div className='p-4 border-b gap-2 border-[#F4F4F4] w-full flex items-center h-full'>

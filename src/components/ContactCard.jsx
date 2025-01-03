@@ -6,10 +6,11 @@ import { RxCross2 } from "react-icons/rx"
 function ContactCard({ contact, removeHandler }) {
 
     const [showRemoveConfirm, setShowRemoveConfirm] = useState(false)
+    const [isRemoving, setIsRemoving] = useState(false)
 
     return (
         <div
-            className={`border border-gray-200 w-full max-w-screen-sm shrink-0 shadow-sm shadow-green-100 bg-white rounded-2xl overflow-hidden transition-all duration-300`}>
+            className={`border border-gray-200 w-full max-w-screen-sm shrink-0 shadow-sm shadow-green-100 bg-white rounded-2xl overflow-hidden transition-all duration-500 max-h-40 mb-4`}>
             <div className="p-3 border-b border-[#F4F4F4] flex gap-2 items-center">
                 <div className='rounded-full w-[50px] h-[50px] bg-gray-100 border border-gray-200 flex justify-center items-center'>{contact.name?.charAt(0) === '+'
                     ? contact.name?.charAt(contact.name.length - 1)
@@ -33,7 +34,7 @@ function ContactCard({ contact, removeHandler }) {
                         <button className={`bg-gray-50 rounded-l-2xl border-l border-gray-300 transition-all duration-300 w-12`} onClick={() => setShowRemoveConfirm(false)}>
                             <RxCross2 size={20} className="m-auto" />
                         </button>
-                        <button className={`bg-green-100 transition-all duration-300 w-12`} onClick={() => removeHandler(contact.number)}>
+                        <button className={`bg-green-100 transition-all duration-300 w-12`} onClick={(e) => removeHandler(e, contact.number)}>
                             <FaCheck className="m-auto" color="green" />
                         </button>
                     </div>

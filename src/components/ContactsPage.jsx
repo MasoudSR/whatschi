@@ -37,7 +37,10 @@ function ContactsPage({ contacts, setContacts }) {
             {contacts.length ?
                 contacts.map(contact => <ContactCard key={contact.number} contact={contact} removeHandler={removeHandler} editHandler={editHandler} />)
                 :
-                "You have no saved contact"}
+                <div className='mt-10 duration-300 animate-fade-up'>
+                    No contacts saved yet.
+                </div>
+            }
         </div>
     )
 }

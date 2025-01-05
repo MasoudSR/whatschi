@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { BiSolidUserCheck, BiSolidUserX } from "react-icons/bi"
 import { FaArrowLeft, FaCheck, FaPhoneAlt, FaUser, FaUserEdit, FaWhatsapp } from "react-icons/fa"
 import { RxCross2 } from "react-icons/rx"
@@ -11,6 +11,7 @@ function ContactCard({ contact, removeHandler, editHandler }) {
     const [name, setName] = useState(contact.name)
     const [color, setColor] = useState(contact.color || "gray")
     const [isSaved, setIsSaved] = useState(false)
+    const inputRef = useRef(null);
 
     const handleCancelEdit = () => {
         if (isEditing) {
@@ -35,6 +36,11 @@ function ContactCard({ contact, removeHandler, editHandler }) {
     const changeColor = (selectedColor) => {
         setColor(selectedColor)
     }
+
+    const clearAndFocus = () => {
+        setName("");
+        inputRef.current.focus();
+    };
 
     return (
         <div
@@ -74,7 +80,13 @@ function ContactCard({ contact, removeHandler, editHandler }) {
                             <FaUser size={14} className="text-green-500 w-8" />
                             <div className="flex flex-col gap-1 w-full">
                                 <span className="text-sm text-gray-400">Name</span>
-                                <input type="text" className={`w-full focus:outline-none`} value={name} onChange={(e) => setName(e.target.value)} />
+                                <div className="flex">
+                                    <input type="text" ref={inputRef} className={`w-full focus:outline-none`} value={name} onChange={(e) => setName(e.target.value)} />
+                                    <button type='button' className={`rounded-full transition-all ${name ? "scale-100" : "scale-0"}`}
+                                        onClick={clearAndFocus}>
+                                        <RxCross2 color='gray' />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div className="text-slate-400 text-xs flex items-center m-2 gap-[2px]">

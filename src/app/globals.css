@@ -42,4 +42,34 @@ body {
 
 .justify-safe-center {
 	justify-content: safe center;
-  }
+}
+
+.red {
+	background-color: #fee2e2;
+	border-color: #fecaca;
+}
+
+.blue {
+	background-color: #dbeafe;
+	border-color: #bfdbfe;
+}
+
+.green {
+	background-color: #dcfce7;
+	border-color: #bbf7d0;
+}
+
+.yellow {
+	background-color: #fef9c3;
+	border-color: #fef08a;
+}
+
+.orange {
+	background-color: #ffedd5;
+	border-color: #fed7aa;
+}
+
+.gray {
+	background-color: #f3f4f6;
+	border-color: #e5e7eb;
+}

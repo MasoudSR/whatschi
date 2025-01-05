@@ -5,10 +5,10 @@ import saveStorage from '@/helpers/saveStorage'
 function ContactsPage({ contacts, setContacts }) {
 
     const removeHandler = (e, contactNumber) => {
-        const card = e.currentTarget.parentNode.parentNode.parentNode.parentNode
+        const card = e.currentTarget.parentNode.parentNode.parentNode.parentNode.parentNode
         card.classList.add("scale-0")
         setTimeout(() => {
-            card.classList.remove("max-h-40")
+            card.classList.remove("max-h-96")
             card.classList.add("max-h-0")
             card.classList.remove("mb-4")
             card.classList.add("mb-0")
@@ -24,10 +24,18 @@ function ContactsPage({ contacts, setContacts }) {
         }, 1000);
     }
 
+    const editHandler = (newContact) => {
+        const contactsData = loadStorage();
+        const index = contactsData.contacts.findIndex((contact) => contact.number === newContact.number)
+        contactsData.contacts[index] = newContact
+        saveStorage(contactsData);
+        setContacts(contactsData.contacts)
+    }
+
     return (
         <div className='flex flex-col items-center pt-20 md:pt-24 p-4 w-screen h-screen overflow-auto'>
             {contacts.length ?
-                contacts.map(contact => <ContactCard key={contact.number} contact={contact} removeHandler={removeHandler} />)
+                contacts.map(contact => <ContactCard key={contact.number} contact={contact} removeHandler={removeHandler} editHandler={editHandler} />)
                 :
                 "You have no saved contact"}
         </div>

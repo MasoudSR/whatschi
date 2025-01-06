@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiSolidUserCheck, BiSolidUserPlus, BiSolidUserX } from 'react-icons/bi';
 import loadStorage from "@/helpers/loadStorage";
 import saveStorage from "@/helpers/saveStorage";
@@ -13,6 +13,19 @@ function HomePage({ contacts, setContacts }) {
     const [countryCode, setCountryCode] = useState("+98");
     const [contactDetails, setContactDetails] = useState({});
     const [saveStatus, setSaveStatus] = useState("add");
+
+
+    useEffect(() => {
+        if (contactDetails) {
+            const isExist = contacts.findIndex(contact => contact.number === contactDetails.number)
+            console.log(isExist);
+            if (isExist === -1) {
+                setSaveStatus("add");
+            }
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [contacts])
 
 
     const numberHandler = (e) => {
@@ -82,7 +95,7 @@ function HomePage({ contacts, setContacts }) {
         setSaveStatus("added");
         setTimeout(() => {
             setSaveStatus("remove");
-        }, 3000);
+        }, 1500);
     };
 
     const removeHandler = () => {

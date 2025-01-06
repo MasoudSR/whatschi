@@ -9,8 +9,25 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
 	const [page, setPage] = useState("home");
-
 	const [contacts, setContacts] = useState([]);
+
+	let startX = 0;
+
+	const handleTouchStart = (e) => {
+		const touch = e.touches[0];
+		startX = touch.clientX;
+	};
+
+	const handleTouchEnd = (e) => {
+		const touch = e.changedTouches[0];
+		const diffX = touch.clientX - startX;
+
+		if (diffX > 50 && page === "contacts") {
+			setPage("home");
+		} else if (diffX < -50 && page === "home") {
+			setPage("contacts");
+		}
+	};
 
 	useEffect(() => {
 		const contactsData = loadStorage();
@@ -18,7 +35,7 @@ export default function Home() {
 	}, []);
 
 	return (
-		<div className="overflow-hidden bg-green-50">
+		<div className="overflow-hidden bg-green-50" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
 			<div>
 				<MenuBar page={page} setPage={setPage} />
 			</div>

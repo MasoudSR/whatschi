@@ -133,7 +133,7 @@ function HomePage({ contacts, setContacts }) {
 
     return (
         <div className="flex flex-col h-screen overflow-x-hidden items-center gap-14 p-3 pt-36 pb-16 w-screen">
-            <Image src="/logo.png" alt='logo' width={150} height={150} className="pointer-events-none drop-shadow" />
+            <Image src="/logo.png" alt='logo' width={150} height={150} className="pointer-events-none drop-shadow select-none" />
             <div className="card w-full max-w-screen-sm">
                 <div className={`card__content relative transition-transform duration-1000 h-[185px] ${contactDetails.link && "flip"}`}>
                     <form onSubmit={numberHandler} className="rounded-3xl border border-gray-200 shadow-2xl shadow-green-300 w-full max-w-screen-sm bg-white card__front absolute top-0 bottom-0 right-0 left-0">

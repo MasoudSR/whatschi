@@ -49,17 +49,18 @@ function ContactCard({ contact, removeHandler, editHandler }) {
 
                 <div className={`p-3 flex justify-between`}>
                     <div className="flex gap-2 items-center relative">
-                        <div className={`rounded-full w-[50px] h-[50px] border transition-all duration-500 border-gray-200 flex justify-center items-center ${color}`}>{contact.name?.charAt(0) === '+'
+                        <div className={`rounded-full shrink-0 w-[50px] h-[50px] border transition-all duration-500 border-gray-200 flex justify-center items-center ${color}`}>{contact.name?.charAt(0) === '+'
                             ? contact.name?.charAt(contact.name.length - 1)
                             : contact.name?.charAt(0)}
                         </div>
-                        <div className={`transition-all duration-300 max-w-0 ${isEditing ? "opacity-0 translate-y-20" : "opacity-100"}`}>
+                        <div className={`transition-all duration-300 ${isEditing ? "opacity-0 translate-y-20 pointer-events-none" : "opacity-100"}`}>
                             <div>{contact.name}</div>
                             <div className="text-slate-400 text-xs">{contact.number}</div>
                         </div>
+                        <div className="w-10"></div>
                     </div>
 
-                    <div className={`flex rounded-2xl h-12  ${isEditing ? "bg-gray-100" : ""}`}>
+                    <div className={`flex rounded-2xl h-12 absolute right-3 ${isEditing ? "bg-gray-100" : ""}`}>
                         <button className={`flex justify-center flex-col items-center transition-all duration-300 h-full rounded-2xl w-12 ${isEditing ? "" : ""}`} onClick={handleCancelEdit}>
                             <div className={`flex justify-center items-center transition-all duration-300 ${isEditing ? "scale-0 rotate-180" : ""}`}>
                                 <FaUserEdit size={20} className={`absolute transition-all duration-300 ${isSaved ? "scale-0" : "scale-100"}`} />
@@ -134,29 +135,6 @@ function ContactCard({ contact, removeHandler, editHandler }) {
                     </div>
                 </div>
             </div>
-
-
-
-            {/* Edit panel */}
-            {/* <div className={`absolute w-full h-full top-0 left-0 z-20 transition-all duration-500 origin-top-right bg-white ${isEditing ? "scale-100 opacity-100" : "scale-0 opacity-0"}`}>
-                <div className="p-3 border-b border-[#F4F4F4] flex justify-between">
-                    <div className="flex gap-2 items-center">
-                        <div className='rounded-full w-[50px] h-[50px] bg-gray-100 border border-gray-200 flex justify-center items-center'>{contact.name?.charAt(0) === '+'
-                            ? contact.name?.charAt(contact.name.length - 1)
-                            : contact.name?.charAt(0)}</div>
-                        <div>
-                            <div>{contact.name}</div>
-                            <div className="text-slate-400 text-xs">{contact.number}</div>
-                        </div>
-                    </div>
-                    <div className={`flex border rounded-full transition-all duration-300 shadow-sm`}>
-                        <button className={`flex justify-center flex-col items-center translate-x-[1px] transition-all duration-300 w-12 rounded-2xl`} onClick={() => setIsEditing(false)}>
-                            <FaUserEdit size={20} />
-                        </button>
-                    </div>
-                </div>
-            </div> */}
-
         </div >
     )
 }

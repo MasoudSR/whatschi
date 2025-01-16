@@ -69,6 +69,8 @@ function HomePage({ contacts, setContacts }) {
 
         const link = `https://wa.me/${formattedNumber}`;
 
+        document.activeElement.blur();
+
         const existContact = contacts.find(item => item.number === formattedNumber)
         if (existContact) {
             setContactDetails(existContact);

@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    /* Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+}
+
 @font-face {
 	font-family: 'Helvetica';
 	src: url('./fonts/Helvetica.ttf') format('truetype');
@@ -82,3 +94,4 @@ body {
 	background-color: #f3f4f6;
 	border-color: #e5e7eb;
 }
+

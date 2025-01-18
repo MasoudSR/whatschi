@@ -7,10 +7,9 @@ import Image from 'next/image';
 import { IoChevronBack } from 'react-icons/io5';
 import { RxCross2 } from "react-icons/rx";
 
-function HomePage({ contacts, setContacts }) {
+function HomePage({ contacts, setContacts, countryCode, setCountryCode }) {
 
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [countryCode, setCountryCode] = useState("+98");
     const [contactDetails, setContactDetails] = useState({});
     const [saveStatus, setSaveStatus] = useState("add");
 
@@ -18,7 +17,6 @@ function HomePage({ contacts, setContacts }) {
     useEffect(() => {
         if (contactDetails) {
             const isExist = contacts.findIndex(contact => contact.number === contactDetails.number)
-            console.log(isExist);
             if (isExist === -1) {
                 setSaveStatus("add");
             }
@@ -109,30 +107,6 @@ function HomePage({ contacts, setContacts }) {
         setSaveStatus("add");
     };
 
-    const countryOptions = [
-        { code: "+98", country: "Iran" },
-        { code: "+90", country: "Turkey" },
-        { code: "+971", country: "UAE" },
-        { code: "+86", country: "China" },
-        { code: "+81", country: "Japan" },
-        { code: "+1", country: "USA" },
-        { code: "+44", country: "UK" },
-        { code: "+49", country: "Germany" },
-        { code: "+33", country: "France" },
-        { code: "+61", country: "Australia" },
-    ];
-
-    const getSelectValue = () => {
-        let formattedCountryCode = countryCode;
-        if (countryCode.startsWith("00")) {
-            formattedCountryCode = `+${countryCode.slice(2)}`;
-        } else if (!countryCode.startsWith("+")) {
-            formattedCountryCode = `+${countryCode}`;
-        }
-        const matchedCountry = countryOptions.find((option) => option.code === formattedCountryCode);
-        return matchedCountry ? formattedCountryCode : "";
-    };
-
     return (
         <div className="flex flex-col h-screen overflow-x-hidden items-center gap-14 p-3 pt-36 pb-16 w-screen">
             <Image src="/logo.png" alt='logo' width={150} height={150} className="pointer-events-none drop-shadow select-none" />
@@ -142,17 +116,6 @@ function HomePage({ contacts, setContacts }) {
                         <div className='p-4 border-b border-[#F4F4F4] w-full'>
                             <p className="self-start text-gray-700 text-sm p-3 pt-0">Enter Phone Number</p>
                             <div className="flex w-full">
-                                {/* <select
-                            value={getSelectValue()}
-                            onChange={(e) => setCountryCode(e.target.value)}
-                            className="">
-                            {countryOptions.map((c) => (
-                                <option key={c.code} value={c.code}>
-                                    {c.country}
-                                </option>
-                            ))}
-                            <option value="">Manual</option>
-                        </select> */}
                                 <div className='flex w-full bg-[#F5F5F5] rounded-full items-center'>
                                     <input
                                         type="text"
@@ -179,7 +142,7 @@ function HomePage({ contacts, setContacts }) {
                             </div>
                         </div>
                         <div className='px-5 py-4 w-full'>
-                            <input type="submit" value="Show" className="w-full p-3 shadow-sm shadow-green-300 rounded-[2rem] bg-green-500 text-white" />
+                            <input type="submit" value="Show" className="w-full p-3 shadow-sm shadow-green-300 rounded-[2rem] bg-green-500 text-white cursor-pointer" />
                         </div>
                     </form>
 

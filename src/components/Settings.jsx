@@ -5,15 +5,15 @@ import { IoChevronBack } from "react-icons/io5";
 
 function Settings({ countryCode, setCountryCode, isCountriesShowing, setIsCountriesShowing }) {
 
-    const [defaultCountryCode , setDefaultCountryCode] = useState("+98")
+    const [defaultCountryCode, setDefaultCountryCode] = useState("+98")
 
     useEffect(() => {
         const settings = JSON.parse(localStorage.getItem("settings"));
-		if (settings) {
-			setDefaultCountryCode(settings.defaultCode);
-		}
+        if (settings) {
+            setDefaultCountryCode(settings.defaultCode);
+        }
     }, [])
-    
+
 
     const countryOptions = [
         { code: "+98", country: "Iran" },
@@ -51,7 +51,7 @@ function Settings({ countryCode, setCountryCode, isCountriesShowing, setIsCountr
                     </div>
                     <div className='text-gray-300 flex gap-2 items-center'>
                         <div className={`transition-all duration-300 ${isCountriesShowing ? "opacity-0 translate-y-6" : "opacity-100"}`}>
-                            {defaultCountryCode}
+                            +{defaultCountryCode}
                         </div>
                         <div className={`transition-all duration-300 ${isCountriesShowing ? "rotate-90" : "rotate-180"}`}><IoChevronBack size={20} /></div>
                     </div>

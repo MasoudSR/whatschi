@@ -12,6 +12,7 @@ function HomePage({ contacts, setContacts, countryCode, setCountryCode }) {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [contactDetails, setContactDetails] = useState({});
     const [saveStatus, setSaveStatus] = useState("add");
+    const [isCountryCodeFocused, setIsCountryCodeFocused] = useState(false);
 
 
     useEffect(() => {
@@ -117,14 +118,18 @@ function HomePage({ contacts, setContacts, countryCode, setCountryCode }) {
                             <p className="self-start text-gray-700 text-sm p-3 pt-0">Enter Phone Number</p>
                             <div className="flex w-full">
                                 <div className='flex w-full bg-[#F5F5F5] rounded-full items-center'>
+                                    <span className={`pl-4 ${countryCode || isCountryCodeFocused ? "text-black" : "text-gray-400"}`}>+</span>
                                     <input
-                                        type="text"
-                                        className="w-16 px-4 py-2 rounded-l-full focus:outline-none bg-[#F5F5F5] border-r"
-                                        placeholder="+98"
+                                        type="number"
+                                        className="w-14 pl-1 pr-2 py-2 rounded-l-full focus:outline-none bg-[#F5F5F5] border-r"
+                                        placeholder="98"
                                         value={countryCode}
                                         onChange={(e) => {
                                             setCountryCode(e.target.value);
-                                        }}
+                                        }
+                                        }
+                                        onFocus={() => setIsCountryCodeFocused(true)}
+                                        onBlur={() => setIsCountryCodeFocused(false)}
                                     />
                                     <div className='w-[1px] h-full bg-[#F4F4F4]'></div>
                                     <input

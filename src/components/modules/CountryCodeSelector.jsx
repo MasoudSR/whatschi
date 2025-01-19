@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CountryCodeSelector({ countryCode, setCountryCode }) {
+function CountryCodeSelector({ countryCode, setCountryCode , setDefaultCountryCode }) {
 
     const countryOptions = [
         { code: "+98", country: "Iran" },
@@ -19,6 +19,7 @@ function CountryCodeSelector({ countryCode, setCountryCode }) {
 
     const countryCodeChanger = (code) => {
         setCountryCode(code)
+        setDefaultCountryCode(code)
         localStorage.setItem("settings", JSON.stringify({ defaultCode: code }));
     }
 

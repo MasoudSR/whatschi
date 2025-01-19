@@ -1,9 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CountryCodeSelector from './modules/CountryCodeSelector';
 import { TbWorldPin } from "react-icons/tb";
 import { IoChevronBack } from "react-icons/io5";
 
 function Settings({ countryCode, setCountryCode, isCountriesShowing, setIsCountriesShowing }) {
+
+    const [defaultCountryCode , setDefaultCountryCode] = useState("+98")
+
+    useEffect(() => {
+        const settings = JSON.parse(localStorage.getItem("settings"));
+		if (settings) {
+			setDefaultCountryCode(settings.defaultCode);
+		}
+    }, [])
+    
 
     const countryOptions = [
         { code: "+98", country: "Iran" },
@@ -18,16 +28,16 @@ function Settings({ countryCode, setCountryCode, isCountriesShowing, setIsCountr
         { code: "+61", country: "Australia" },
     ];
 
-    const getSelectValue = () => {
-        let formattedCountryCode = countryCode;
-        if (countryCode.startsWith("00")) {
-            formattedCountryCode = `+${countryCode.slice(2)}`;
-        } else if (!countryCode.startsWith("+")) {
-            formattedCountryCode = `+${countryCode}`;
-        }
-        const matchedCountry = countryOptions.find((option) => option.code === formattedCountryCode);
-        return matchedCountry ? formattedCountryCode : "";
-    };
+    // const getSelectValue = () => {
+    //     let formattedCountryCode = countryCode;
+    //     if (countryCode.startsWith("00")) {
+    //         formattedCountryCode = `+${countryCode.slice(2)}`;
+    //     } else if (!countryCode.startsWith("+")) {
+    //         formattedCountryCode = `+${countryCode}`;
+    //     }
+    //     const matchedCountry = countryOptions.find((option) => option.code === formattedCountryCode);
+    //     return matchedCountry ? formattedCountryCode : "";
+    // };
 
     return (
         <div className='flex flex-col h-full justify-between'>
@@ -41,13 +51,13 @@ function Settings({ countryCode, setCountryCode, isCountriesShowing, setIsCountr
                     </div>
                     <div className='text-gray-300 flex gap-2 items-center'>
                         <div className={`transition-all duration-300 ${isCountriesShowing ? "opacity-0 translate-y-6" : "opacity-100"}`}>
-                            {countryCode}
+                            {defaultCountryCode}
                         </div>
                         <div className={`transition-all duration-300 ${isCountriesShowing ? "rotate-90" : "rotate-180"}`}><IoChevronBack size={20} /></div>
                     </div>
                 </div>
                 <div className={`px-4 transition-all duration-300 h-[calc(100%-56px)] overflow-y-auto no-scrollbar ${isCountriesShowing ? "opacity-100" : "opacity-100 -translate-y-0"}`}>
-                    <CountryCodeSelector countryCode={countryCode} setCountryCode={setCountryCode} />
+                    <CountryCodeSelector countryCode={countryCode} setCountryCode={setCountryCode} setDefaultCountryCode={setDefaultCountryCode} />
                 </div>
 
                 {/* <div>

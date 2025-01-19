@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react'
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoSettingsOutline, IoSettings } from "react-icons/io5";
 import Settings from './Settings';
 import { IoChevronBack } from "react-icons/io5";
 
@@ -37,8 +37,9 @@ function MenuBar({ page, setPage, countryCode, setCountryCode }) {
                         </div>
                         <div className={`absolute top-[2px] left-[25%] text-xl transition-all duration-300 ${isSettingsOpen ? "opacity-100" : "opacity-0 translate-y-8"}`}>Settings</div>
                     </div>
-                    <div className={`justify-self-end cursor-pointer p-1 rounded-full transition-all duration-300 ${isSettingsOpen ? "rotate-180" : ""}`} onClick={settingsBtnHandler}>
-                        <IoSettingsOutline size={20} color='white' />
+                    <div className={`flex justify-self-end cursor-pointer p-1 rounded-full relative`} onClick={settingsBtnHandler}>
+                        <IoSettings size={20} color='white' className={`absolute transition-all duration-300 ${isSettingsOpen ? "rotate-[360deg] opacity-100" : "opacity-0"}`} />
+                        <IoSettingsOutline size={20} color='white' className={`transition-all duration-300 ${isSettingsOpen ? "rotate-[295deg] opacity-0" : "opacity-100"}`} />
                     </div>
                 </div>
                 <div className={`h-full py-6 transition-all duration-300 ${isSettingsOpen ? "opacity-100" : "opacity-0 translate-y-8"}`}>

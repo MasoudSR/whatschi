@@ -57,7 +57,7 @@ function Settings({ countryCode, setCountryCode, isCountriesShowing, setIsCountr
                     </div>
                 </div>
                 <div className={`px-4 transition-all duration-300 h-[calc(100%-56px)] overflow-y-auto no-scrollbar ${isCountriesShowing ? "opacity-100" : "opacity-100 -translate-y-0"}`}>
-                    <CountryCodeSelector countryCode={countryCode} setCountryCode={setCountryCode} setDefaultCountryCode={setDefaultCountryCode} />
+                    <CountryCodeSelector countryCode={countryCode} setCountryCode={setCountryCode} setDefaultCountryCode={setDefaultCountryCode} defaultCountryCode={defaultCountryCode} />
                 </div>
 
                 {/* <div>

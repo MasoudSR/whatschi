@@ -120,7 +120,7 @@ function HomePage({ contacts, setContacts, countryCode, setCountryCode }) {
                                 <div className='flex w-full bg-[#F5F5F5] rounded-full items-center'>
                                     <span className={`pl-4 ${countryCode || isCountryCodeFocused ? "text-black" : "text-gray-400"}`}>+</span>
                                     <input
-                                        type="number"
+                                        type="tel"
                                         className="w-14 pl-1 pr-2 py-2 rounded-l-full focus:outline-none bg-[#F5F5F5] border-r"
                                         placeholder="98"
                                         value={countryCode}

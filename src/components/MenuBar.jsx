@@ -1,19 +1,60 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoSettingsOutline, IoSettings } from "react-icons/io5";
 import Settings from './Settings';
 import { IoChevronBack } from "react-icons/io5";
 
 
-function MenuBar({ page, setPage, countryCode, setCountryCode }) {
+function MenuBar({ page, setPage, countryCode, setCountryCode, defaultCountryCode, setDefaultCountryCode }) {
 
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
     const [isCountriesShowing, setIsCountriesShowing] = useState(false)
+    const [manualCountryCode, setManualCountryCode] = useState("")
+    const [isManualCountryCode, setIsManualCountryCode] = useState("")
+    const [isCodeChanged, setIsCodeChanged] = useState(false)
+
+    const countryOptions = [
+        { code: "98", country: "Iran" },
+        { code: "90", country: "Turkey" },
+        { code: "971", country: "UAE" },
+        { code: "86", country: "China" },
+        { code: "81", country: "Japan" },
+        { code: "1", country: "USA" },
+        { code: "44", country: "UK" },
+        { code: "49", country: "Germany" },
+        { code: "33", country: "France" },
+        { code: "61", country: "Australia" },
+    ];
+
+    useEffect(() => {
+        const isManualCode = !countryOptions.some(country => country.code === defaultCountryCode);
+        if (isManualCode) {
+            setManualCountryCode(defaultCountryCode)
+            setIsManualCountryCode(true)
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
 
     const settingsBtnHandler = () => {
         setIsSettingsOpen(!isSettingsOpen)
         setIsCountriesShowing(false)
+
+        if (isCountriesShowing) {
+            const isFromList = countryOptions.some(country => country.code === defaultCountryCode);
+
+            if (isFromList && manualCountryCode) {
+                setManualCountryCode("")
+                setIsCodeChanged(false)
+                setIsManualCountryCode(false)
+            }
+            if (!isFromList && manualCountryCode !== defaultCountryCode) {
+                setManualCountryCode(defaultCountryCode)
+                setIsCodeChanged(false)
+            }
+        }
     }
 
 
@@ -43,7 +84,7 @@ function MenuBar({ page, setPage, countryCode, setCountryCode }) {
                     </div>
                 </div>
                 <div className={`h-full py-6 transition-all duration-300 ${isSettingsOpen ? "opacity-100" : "opacity-0 translate-y-8"}`}>
-                    <Settings countryCode={countryCode} setCountryCode={setCountryCode} isCountriesShowing={isCountriesShowing} setIsCountriesShowing={setIsCountriesShowing} />
+                    <Settings countryCode={countryCode} setCountryCode={setCountryCode} isCountriesShowing={isCountriesShowing} setIsCountriesShowing={setIsCountriesShowing} defaultCountryCode={defaultCountryCode} setDefaultCountryCode={setDefaultCountryCode} manualCountryCode={manualCountryCode} setManualCountryCode={setManualCountryCode} countryOptions={countryOptions} isManualCountryCode={isManualCountryCode} setIsManualCountryCode={setIsManualCountryCode} isCodeChanged={isCodeChanged} setIsCodeChanged={setIsCodeChanged} />
                 </div>
             </div>
         </div>

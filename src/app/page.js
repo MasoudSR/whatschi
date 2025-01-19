@@ -10,7 +10,8 @@ import { useEffect, useState } from "react";
 export default function Home() {
 	const [page, setPage] = useState("home");
 	const [contacts, setContacts] = useState([]);
-	const [countryCode, setCountryCode] = useState("+98");
+	const [countryCode, setCountryCode] = useState("98");
+	const [defaultCountryCode, setDefaultCountryCode] = useState("98");
 
 	let startX = 0;
 
@@ -36,13 +37,21 @@ export default function Home() {
 		const settings = JSON.parse(localStorage.getItem("settings"));
 		if (settings) {
 			setCountryCode(settings.defaultCode);
+			setDefaultCountryCode(settings.defaultCode);
 		}
 	}, []);
 
 	return (
 		<div className="overflow-hidden bg-green-50">
 			<div>
-				<MenuBar page={page} setPage={setPage} countryCode={countryCode} setCountryCode={setCountryCode} />
+				<MenuBar
+					page={page}
+					setPage={setPage}
+					countryCode={countryCode}
+					setCountryCode={setCountryCode}
+					defaultCountryCode={defaultCountryCode}
+					setDefaultCountryCode={setDefaultCountryCode}
+				/>
 			</div>
 			<div
 				className={`flex w-[200vw]  ${page !== "home" ? "animate-smoothMoveLeft" : "animate-smoothMoveRight"}`}

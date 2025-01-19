@@ -1,27 +1,48 @@
-import React from 'react'
+import { FaCheck } from 'react-icons/fa';
 
-function CountryCodeSelector({ countryCode, setCountryCode , setDefaultCountryCode , defaultCountryCode}) {
-
-    const countryOptions = [
-        { code: "98", country: "Iran" },
-        { code: "90", country: "Turkey" },
-        { code: "971", country: "UAE" },
-        { code: "86", country: "China" },
-        { code: "81", country: "Japan" },
-        { code: "1", country: "USA" },
-        { code: "44", country: "UK" },
-        { code: "49", country: "Germany" },
-        { code: "33", country: "France" },
-        { code: "61", country: "Australia" },
-    ];
-
-    const isManualCountryCode = !countryOptions.some(country => country.code === defaultCountryCode);
+function CountryCodeSelector({ setCountryCode, setDefaultCountryCode, defaultCountryCode, manualCountryCode, setManualCountryCode, countryOptions, isManualCountryCode, setIsManualCountryCode, isCodeChanged, setIsCodeChanged }) {
 
     const countryCodeChanger = (code) => {
+        setManualCountryCode("")
+        setIsManualCountryCode(false)
+        setIsCodeChanged(false)
         setCountryCode(code)
         setDefaultCountryCode(code)
         localStorage.setItem("settings", JSON.stringify({ defaultCode: code }));
     }
+
+    const manualCodeHandler = (e) => {
+        setManualCountryCode(e.target.value)
+        if (e.target.value) {
+            setIsCodeChanged(true)
+            setIsManualCountryCode(true)
+        } else {
+            setIsCodeChanged(false)
+        }
+    }
+
+    const saveManualCodeHandle = () => {
+        let formattedCountryCode = manualCountryCode;
+        if (manualCountryCode.startsWith("00")) {
+            formattedCountryCode = `${manualCountryCode.slice(2)}`;
+        } else if (manualCountryCode.startsWith("+")) {
+            formattedCountryCode = `${manualCountryCode.slice(1)}`;
+        }
+
+        const countryCodeRegex = /^([1-9]\d{0,2})$/;
+
+        console.log(formattedCountryCode);
+        if (!countryCodeRegex.test(formattedCountryCode)) {
+            alert("Country Code Invalid");
+            return;
+        }
+
+        setIsCodeChanged(false)
+        setCountryCode(formattedCountryCode)
+        setDefaultCountryCode(formattedCountryCode)
+        localStorage.setItem("settings", JSON.stringify({ defaultCode: formattedCountryCode }));
+    }
+
 
     return (
         <div className='flex flex-col pt-2 py-4 px-1 relative'>
@@ -46,10 +67,13 @@ function CountryCodeSelector({ countryCode, setCountryCode , setDefaultCountryCo
                     ${defaultCountryCode === "33" && "translate-y-[800%]"}
                     ${defaultCountryCode === "61" && "translate-y-[900%]"}
                     `}></div>
-            {/* <div className='flex gap-2 items-center bg-green-900 rounded-xl overflow-hidden mt-4'>
-                <div className='px-4 py-2 bg-green-950/40'>Manual</div>
-                <input type="number" placeholder='Your Custom Code' className='bg-green-900 w-full text-center focus:outline-none' />
-            </div> */}
+            <div className='flex h-12 items-center bg-green-900 rounded-xl overflow-hidden mt-4'>
+                <div className={`h-12 w-[40%] bg-green-950/30 transition-all duration-300 flex items-center justify-center`}>Manual</div>
+                <input type="tel" placeholder='Country Code' className='bg-green-900 w-[60%] text-center focus:outline-none' value={manualCountryCode} onChange={manualCodeHandler} />
+                <button className={`mr-2 p-2 rounded-full transition-all duration-300 ${isCodeChanged && isManualCountryCode ? "scale-100" : "scale-0"}`} onClick={saveManualCodeHandle}>
+                    <FaCheck className="m-auto" />
+                </button>
+            </div>
         </div>
     )
 }

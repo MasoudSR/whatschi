@@ -51,6 +51,7 @@ export default function Home() {
 					setCountryCode={setCountryCode}
 					defaultCountryCode={defaultCountryCode}
 					setDefaultCountryCode={setDefaultCountryCode}
+					setContacts={setContacts}
 				/>
 			</div>
 			<div

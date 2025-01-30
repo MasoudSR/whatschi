@@ -13,8 +13,8 @@ const userSchema = new Schema({
 		type: String,
 	},
 	data: {
-		updatedAt: String,
-		lastSync: String,
+		updatedAt: { type: String, default: null },
+		lastSync: { type: String, default: null },
 		contacts: [],
 	},
 });

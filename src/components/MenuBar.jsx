@@ -6,7 +6,7 @@ import Settings from './Settings';
 import { IoChevronBack } from "react-icons/io5";
 
 
-function MenuBar({ page, setPage, countryCode, setCountryCode, defaultCountryCode, setDefaultCountryCode }) {
+function MenuBar({ page, setPage, countryCode, setCountryCode, defaultCountryCode, setDefaultCountryCode, setContacts }) {
 
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
     const [isCountriesShowing, setIsCountriesShowing] = useState(false)
@@ -84,7 +84,7 @@ function MenuBar({ page, setPage, countryCode, setCountryCode, defaultCountryCod
                     </div>
                 </div>
                 <div className={`h-full py-6 transition-all duration-300 ${isSettingsOpen ? "opacity-100" : "opacity-0 translate-y-8"}`}>
-                    <Settings countryCode={countryCode} setCountryCode={setCountryCode} isCountriesShowing={isCountriesShowing} setIsCountriesShowing={setIsCountriesShowing} defaultCountryCode={defaultCountryCode} setDefaultCountryCode={setDefaultCountryCode} manualCountryCode={manualCountryCode} setManualCountryCode={setManualCountryCode} countryOptions={countryOptions} isManualCountryCode={isManualCountryCode} setIsManualCountryCode={setIsManualCountryCode} isCodeChanged={isCodeChanged} setIsCodeChanged={setIsCodeChanged} />
+                    <Settings countryCode={countryCode} setCountryCode={setCountryCode} isCountriesShowing={isCountriesShowing} setIsCountriesShowing={setIsCountriesShowing} defaultCountryCode={defaultCountryCode} setDefaultCountryCode={setDefaultCountryCode} manualCountryCode={manualCountryCode} setManualCountryCode={setManualCountryCode} countryOptions={countryOptions} isManualCountryCode={isManualCountryCode} setIsManualCountryCode={setIsManualCountryCode} isCodeChanged={isCodeChanged} setIsCodeChanged={setIsCodeChanged} setContacts={setContacts} />
                 </div>
             </div>
         </div>

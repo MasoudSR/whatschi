@@ -1,28 +1,34 @@
 import loadStorage from '@/helpers/loadStorage';
 import React, { useEffect, useState } from 'react'
 import { RxCross2 } from "react-icons/rx";
-import { BsCloudCheck } from "react-icons/bs";
+import { BsCloudCheckFill } from "react-icons/bs";
 
-function SyncModal({ setSyncModal }) {
+function SyncModal({ setSyncModal, setContacts }) {
 
-    const [isSyncing, setIsSyncing] = useState(true)
     const [modalOpened, setModalOpened] = useState(false)
     const [syncMode, setSyncMode] = useState("")
     const [localContactsData, setLocalContactsData] = useState(loadStorage())
     const [syncStatus, setSyncStatus] = useState("")
+    const [metadata, setMetadata] = useState(null);
+    const [loadingMetadata, setLoadingMetadata] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         setModalOpened(true)
+        const fetchMetadata = async () => {
+            try {
+                const response = await fetch("/api/contacts/metadata")
+                if (!response.ok) throw new Error("Failed to fetch metadata")
+                const data = await response.json()
+                setMetadata(data)
+            } catch (err) {
+                setError(err.message)
+            } finally {
+                setLoadingMetadata(false)
+            }
+        }
 
-        const tempData = loadStorage()
-
-        // setLocalContactsData(tempData)
-
-        console.log(tempData);
-
-        setTimeout(() => {
-            setIsSyncing(false)
-        }, 3000);
+        fetchMetadata()
     }, [])
 
     const closeModal = () => {
@@ -34,10 +40,60 @@ function SyncModal({ setSyncModal }) {
 
     const syncContacts = (mode) => {
         setSyncMode(mode)
-        // setSyncStatus("pending")
-        setTimeout(() => {
-            setSyncStatus("done")
-        }, 3000);
+
+        if (mode === "local") {
+            const syncLocalContacts = async () => {
+                try {
+                    const response = await fetch("/api/contacts/local", {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json", },
+                        body: JSON.stringify(localContactsData),
+                    })
+                    if (!response.ok) throw new Error("Failed")
+                    const res = await response.json()
+                    setSyncStatus(res)
+                } catch (err) {
+                    setError(err.message)
+                }
+            }
+            syncLocalContacts()
+        }
+
+        if (mode === "cloud") {
+            const syncCloudContacts = async () => {
+                try {
+                    const response = await fetch("/api/contacts/cloud")
+                    if (!response.ok) throw new Error("Failed")
+                    const res = await response.json()
+                    setSyncStatus({ success: res.success, message: res.message })
+                    localStorage.setItem("contactsData", JSON.stringify(res.data));
+                    setContacts(res.data.contacts)
+                } catch (err) {
+                    setError(err.message)
+                }
+            }
+            syncCloudContacts()
+        }
+
+        if (mode === "merge") {
+            const syncMergeContacts = async () => {
+                try {
+                    const response = await fetch("/api/contacts/merge", {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json", },
+                        body: JSON.stringify(localContactsData),
+                    })
+                    if (!response.ok) throw new Error("Failed")
+                    const res = await response.json()
+                    setSyncStatus({ success: res.success, message: res.message })
+                    localStorage.setItem("contactsData", JSON.stringify(res.data));
+                    setContacts(res.data.contacts)
+                } catch (err) {
+                    setError(err.message)
+                }
+            }
+            syncMergeContacts()
+        }
     }
 
     return (
@@ -48,21 +104,37 @@ function SyncModal({ setSyncModal }) {
                     <RxCross2 size={22} />
                 </button>
                 <div className='p-4 flex flex-col justify-center items-center'>
-                    <div className={`flex flex-col justify-center items-center gap-3 overflow-hidden transition-all duration-300 ${isSyncing ? "max-h-48 scale-100" : "max-h-0 scale-0"}`}>
+                    <div className={`flex flex-col justify-center items-center gap-3 overflow-hidden transition-all duration-300 ${loadingMetadata ? "max-h-48 scale-100" : "max-h-0 scale-0"}`}>
                         <div className='w-8 h-8 animate-spin border-2 border-t-white border-teal-600 rounded-full'></div>
                         <p>
                             Retrieving contact information from the cloud, please wait.
                         </p>
                     </div>
 
-                    <div className={`flex flex-col transition-all duration-300 ${isSyncing ? "max-h-0 scale-0" : "max-h-[100vh] scale-100"}`}>
+                    <div className={`transition-all duration-300 ${error ? "max-h-[100vh] scale-100" : "max-h-0 scale-0"}`}>
+                        <div className='px-5 py-7'>
+                            <p>Something went wrong.</p>
+                            <p>Please try again later.</p>
+                        </div>
+                    </div>
+
+                    <div className={`flex flex-col transition-all duration-300 ${loadingMetadata || error ? "max-h-0 scale-0" : "max-h-[100vh] scale-100"}`}>
                         <div>
                             <div className={`transition-all duration-300 overflow-hidden ${syncMode ? "max-h-0" : "max-h-10"}`}>
                                 Choose how to sync your contacts
                             </div>
                             <div className={`transition-all duration-300 flex flex-col items-center overflow-hidden ${syncMode ? "max-h-32" : "max-h-0"}`}>
-                                <div className='w-8 h-8 my-2 animate-spin border-2 border-t-white border-teal-600 rounded-full'></div>
-                                <div>
+                                <div className={`transition-all duration-300 overflow-hidden ${syncStatus.success ? "max-h-20" : "max-h-0"}`}>
+                                    <BsCloudCheckFill size={60} />
+                                </div>
+                                <div className={`transition-all duration-300 overflow-hidden ${!syncStatus.success ? "max-h-20" : "max-h-0"}`}>
+                                    <div className='w-8 h-8 my-2 animate-spin border-2 border-t-white border-teal-600 rounded-full'></div>
+                                </div>
+
+                                <div className={`transition-all duration-300 overflow-hidden ${syncStatus.success ? "max-h-20" : "max-h-0"}`}>
+                                    {syncStatus.message && syncStatus.message}
+                                </div>
+                                <div className={`transition-all duration-300 overflow-hidden ${!syncStatus.success ? "max-h-20" : "max-h-0"}`}>
                                     Sync in progress...
                                 </div>
                             </div>
@@ -70,10 +142,19 @@ function SyncModal({ setSyncModal }) {
                         <button className={`flex flex-col transition-all duration-300 items-center bg-teal-700 rounded-xl overflow-hidden shadow-md mt-4 ${syncMode === "cloud" || !syncMode ? "max-h-40 scale-100 mt-4" : "max-h-0 scale-0 mt-0"}`} onClick={() => syncContacts("cloud")} disabled={syncMode}>
                             <div className='bg-teal-700 px-3 py-2'>Keep Cloud Contacts</div>
                             <div className='bg-teal-700 w-full gap-[1px] flex justify-between'>
-                                <div className='bg-teal-600 w-full flex items-center justify-center p-1'>50 contacts</div>
+                                <div className='bg-teal-600 w-full flex items-center justify-center p-1'>
+                                    {metadata && metadata.contactsCount} contact{metadata && metadata.contactsCount > 1 && "s"}
+                                </div>
                                 <div className=' bg-teal-600 w-full p-1'>
                                     <div>Last update:</div>
-                                    <div>Jan 20, 2025</div>
+                                    <div>
+                                        {metadata && metadata.updatedAt ?
+                                            new Date(localContactsData.updatedAt).toLocaleDateString("en-US", {
+                                                year: "numeric",
+                                                month: "short",
+                                                day: "numeric"
+                                            }) : "never"}
+                                    </div>
                                 </div>
                             </div>
                         </button>
@@ -82,7 +163,8 @@ function SyncModal({ setSyncModal }) {
                             <div className='bg-teal-700 px-3 py-2'>Keep Local Contacts</div>
                             <div className='bg-teal-700 w-full gap-[1px] flex justify-between'>
                                 <div className='bg-teal-600 w-full flex items-center justify-center p-1'>
-                                    {localContactsData.contacts.length} contact{localContactsData.contacts.length > 1 && "s"}</div>
+                                    {localContactsData.contacts.length} contact{localContactsData.contacts.length > 1 && "s"}
+                                </div>
                                 <div className=' bg-teal-600 w-full p-1'>
                                     <div>Last update:</div>
                                     <div>

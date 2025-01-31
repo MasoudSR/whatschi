@@ -3,7 +3,24 @@ import { TbWorldPin } from "react-icons/tb";
 import { IoChevronBack } from "react-icons/io5";
 import AccountMenu from './AccountMenu';
 
-function Settings({ countryCode, setCountryCode, isCountriesShowing, setIsCountriesShowing, defaultCountryCode, setDefaultCountryCode, manualCountryCode, setManualCountryCode, countryOptions, isManualCountryCode, setIsManualCountryCode, isCodeChanged, setIsCodeChanged, setContacts }) {
+function Settings({
+    countryCode,
+    setCountryCode,
+    isCountriesShowing,
+    setIsCountriesShowing,
+    defaultCountryCode,
+    setDefaultCountryCode,
+    manualCountryCode,
+    setManualCountryCode,
+    countryOptions,
+    isManualCountryCode,
+    setIsManualCountryCode,
+    isCodeChanged,
+    setIsCodeChanged,
+    setContacts,
+    toggleAccountMenu,
+    setToggleAccountMenu
+}) {
 
     const defaultCountryShowHandler = () => {
 
@@ -44,7 +61,10 @@ function Settings({ countryCode, setCountryCode, isCountriesShowing, setIsCountr
                         <CountryCodeSelector setCountryCode={setCountryCode} setDefaultCountryCode={setDefaultCountryCode} defaultCountryCode={defaultCountryCode} manualCountryCode={manualCountryCode} setManualCountryCode={setManualCountryCode} countryOptions={countryOptions} isManualCountryCode={isManualCountryCode} setIsManualCountryCode={setIsManualCountryCode} isCodeChanged={isCodeChanged} setIsCodeChanged={setIsCodeChanged} />
                     </div>
                 </div>
-                <AccountMenu setContacts={setContacts} />
+                <AccountMenu setContacts={setContacts}
+                    toggleAccountMenu={toggleAccountMenu}
+                    setToggleAccountMenu={setToggleAccountMenu}
+                />
             </div>
             <div className='text-[10px] mt-4 text-emerald-200'>
                 <div>WhatsChi v1.3.0</div>

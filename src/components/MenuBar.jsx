@@ -13,6 +13,7 @@ function MenuBar({ page, setPage, countryCode, setCountryCode, defaultCountryCod
     const [manualCountryCode, setManualCountryCode] = useState("")
     const [isManualCountryCode, setIsManualCountryCode] = useState("")
     const [isCodeChanged, setIsCodeChanged] = useState(false)
+    const [toggleAccountMenu, setToggleAccountMenu] = useState(false)
 
     const countryOptions = [
         { code: "98", country: "Iran" },
@@ -41,6 +42,7 @@ function MenuBar({ page, setPage, countryCode, setCountryCode, defaultCountryCod
     const settingsBtnHandler = () => {
         setIsSettingsOpen(!isSettingsOpen)
         setIsCountriesShowing(false)
+        setToggleAccountMenu(false)
 
         if (isCountriesShowing) {
             const isFromList = countryOptions.some(country => country.code === defaultCountryCode);
@@ -84,7 +86,24 @@ function MenuBar({ page, setPage, countryCode, setCountryCode, defaultCountryCod
                     </div>
                 </div>
                 <div className={`h-full py-6 transition-all duration-300 ${isSettingsOpen ? "opacity-100" : "opacity-0 translate-y-8"}`}>
-                    <Settings countryCode={countryCode} setCountryCode={setCountryCode} isCountriesShowing={isCountriesShowing} setIsCountriesShowing={setIsCountriesShowing} defaultCountryCode={defaultCountryCode} setDefaultCountryCode={setDefaultCountryCode} manualCountryCode={manualCountryCode} setManualCountryCode={setManualCountryCode} countryOptions={countryOptions} isManualCountryCode={isManualCountryCode} setIsManualCountryCode={setIsManualCountryCode} isCodeChanged={isCodeChanged} setIsCodeChanged={setIsCodeChanged} setContacts={setContacts} />
+                    <Settings
+                        countryCode={countryCode}
+                        setCountryCode={setCountryCode}
+                        isCountriesShowing={isCountriesShowing}
+                        setIsCountriesShowing={setIsCountriesShowing}
+                        defaultCountryCode={defaultCountryCode}
+                        setDefaultCountryCode={setDefaultCountryCode}
+                        manualCountryCode={manualCountryCode}
+                        setManualCountryCode={setManualCountryCode}
+                        countryOptions={countryOptions}
+                        isManualCountryCode={isManualCountryCode}
+                        setIsManualCountryCode={setIsManualCountryCode}
+                        isCodeChanged={isCodeChanged}
+                        setIsCodeChanged={setIsCodeChanged}
+                        setContacts={setContacts}
+                        toggleAccountMenu={toggleAccountMenu}
+                        setToggleAccountMenu={setToggleAccountMenu}
+                    />
                 </div>
             </div>
         </div>

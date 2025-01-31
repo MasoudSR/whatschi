@@ -5,10 +5,9 @@ import { MdAccountCircle } from "react-icons/md";
 import SyncModal from './modules/SyncModal';
 import { signIn, signOut, useSession } from "next-auth/react"
 
-function AccountMenu({ setContacts }) {
+function AccountMenu({ setContacts, toggleAccountMenu, setToggleAccountMenu }) {
 
     const { status, data: session } = useSession();
-    const [toggleAccountMenu, setToggleAccountMenu] = useState(false)
     const [syncModal, setSyncModal] = useState(false)
 
     return (

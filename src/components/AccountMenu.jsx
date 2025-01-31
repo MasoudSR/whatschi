@@ -22,7 +22,9 @@ function AccountMenu({ setContacts }) {
                 </div>
                 <div className='text-gray-300 flex gap-2 items-center'>
                     <div className={`transition-all duration-300 text-sm ${toggleAccountMenu ? "opacity-0 translate-y-6" : "opacity-100"}`}>
-                        {status === "authenticated" ? session.user.name : "Not Signed In"}
+                        {status === "loading" ? "Loading" :
+                            status === "authenticated" ? session.user.name : "Not Signed In"
+                        }
                     </div>
                     <div className={`transition-all duration-300 ${toggleAccountMenu ? "rotate-90" : "rotate-180"}`}>
                         <IoChevronBack size={20} />
@@ -30,6 +32,14 @@ function AccountMenu({ setContacts }) {
                 </div>
             </div>
             <div className={`transition-all duration-300 h-[calc(100%-56px)] overflow-y-auto no-scrollbar flex flex-col items-center gap-3 ${toggleAccountMenu ? "opacity-100" : "opacity-100"}`}>
+                {status === "loading" &&
+                    <div className='p-4 flex flex-col justify-center gap-3 items-center'>
+                        <div className='w-8 h-8 animate-spin border-2 border-t-white border-teal-600 rounded-full'></div>
+                        <p className="text-sm text-green-50">
+                            Checking authentication status...
+                        </p>
+                    </div>
+                }
                 {status === "unauthenticated" &&
                     <div className='p-4 flex flex-col justify-center gap-3 items-center'>
                         <p className="text-sm text-green-50">

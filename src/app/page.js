@@ -12,6 +12,7 @@ export default function Home() {
 	const [contacts, setContacts] = useState([]);
 	const [countryCode, setCountryCode] = useState("98");
 	const [defaultCountryCode, setDefaultCountryCode] = useState("98");
+	const [isManualCountryCode, setIsManualCountryCode] = useState(null);
 
 	let startX = 0;
 
@@ -38,6 +39,13 @@ export default function Home() {
 		if (settings) {
 			setCountryCode(settings.defaultCode);
 			setDefaultCountryCode(settings.defaultCode);
+
+			const countryCodes = ["98", "90", "971", "86", "81", "1", "44", "49", "33", "61"];
+
+			const isManualCode = !countryCodes.some((code) => code === settings.defaultCode);
+			if (isManualCode) {
+				setIsManualCountryCode(true);
+			}
 		}
 	}, []);
 
@@ -52,6 +60,8 @@ export default function Home() {
 					defaultCountryCode={defaultCountryCode}
 					setDefaultCountryCode={setDefaultCountryCode}
 					setContacts={setContacts}
+					isManualCountryCode={isManualCountryCode}
+					setIsManualCountryCode={setIsManualCountryCode}
 				/>
 			</div>
 			<div

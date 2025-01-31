@@ -6,12 +6,11 @@ import Settings from './Settings';
 import { IoChevronBack } from "react-icons/io5";
 
 
-function MenuBar({ page, setPage, countryCode, setCountryCode, defaultCountryCode, setDefaultCountryCode, setContacts }) {
+function MenuBar({ page, setPage, countryCode, setCountryCode, defaultCountryCode, setDefaultCountryCode, setContacts, isManualCountryCode, setIsManualCountryCode }) {
 
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
     const [isCountriesShowing, setIsCountriesShowing] = useState(false)
     const [manualCountryCode, setManualCountryCode] = useState("")
-    const [isManualCountryCode, setIsManualCountryCode] = useState("")
     const [isCodeChanged, setIsCodeChanged] = useState(false)
     const [toggleAccountMenu, setToggleAccountMenu] = useState(false)
 
@@ -27,17 +26,6 @@ function MenuBar({ page, setPage, countryCode, setCountryCode, defaultCountryCod
         { code: "33", country: "France" },
         { code: "61", country: "Australia" },
     ];
-
-    useEffect(() => {
-        const isManualCode = !countryOptions.some(country => country.code === defaultCountryCode);
-        if (isManualCode) {
-            setManualCountryCode(defaultCountryCode)
-            setIsManualCountryCode(true)
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
 
     const settingsBtnHandler = () => {
         setIsSettingsOpen(!isSettingsOpen)

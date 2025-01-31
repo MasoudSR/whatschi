@@ -77,8 +77,10 @@ function ContactCard({ contact, removeHandler, editHandler }) {
                 </div>
                 <div className={`pt-0 flex flex-col overflow-hidden transition-all duration-300 ${isEditing ? "max-h-56 opacity-100" : "max-h-0 opacity-0 -translate-y-20"}`}>
                     <div className="p-3 flex flex-col gap-1">
-                        <div className={`border-b border-gray-100 p-1 flex items-center gap-2`}>
-                            <FaUser size={14} className="text-green-500 w-8" />
+                        <div className={`border-b border-gray-100 p-1 pl-0 flex items-center gap-2`}>
+                            <div>
+                                <FaUser size={14} className="text-green-500 w-8" />
+                            </div>
                             <div className="flex flex-col gap-1 w-full">
                                 <span className="text-sm text-gray-400">Name</span>
                                 <div className="flex">
@@ -90,12 +92,14 @@ function ContactCard({ contact, removeHandler, editHandler }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="text-slate-400 text-xs flex items-center m-2 gap-[2px]">
-                            <FaPhoneAlt size={10} />{contact.number}
+                        <div className="text-slate-400 text-xs flex items-center m-2 pl-[2px] gap-[2px]">
+                            <FaPhoneAlt size={10} /><span className="ml-1">{contact.number}</span>
                         </div>
-                        <div className={` border-t border-gray-100 p-1 flex items-center gap-2`}>
-                            <MdColorLens size={17} className="text-green-500 w-8" />
-                            <div className="flex flex-col gap-1">
+                        <div className={`border-t border-gray-100 p-1 pl-0 flex items-center gap-2`}>
+                            <div>
+                                <MdColorLens size={18} className="text-green-500 w-8 translate-y-1" />
+                            </div>
+                            <div className="flex flex-col gap-1 pt-1">
                                 <span className="text-sm text-gray-400">Color</span>
                                 <div className="flex gap-1">
                                     <button className={`rounded-full w-[25px] h-[25px] bg-gray-100 border border-gray-200 flex justify-center items-center outline-2 outline-gray-400 ${color === "gray" && "outline"}`} onClick={() => changeColor("gray")}></button>

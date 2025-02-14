@@ -73,7 +73,7 @@ function AccountMenu({ setContacts, toggleAccountMenu, setToggleAccountMenu }) {
                             }
                             <div className='flex flex-col items-start'>
                                 <span>{session.user.name}</span>
-                                <span className='text-gray-200 text-sm'>amir.sepehr72@gmail.com</span>
+                                <span className='text-gray-200 text-sm'>{session.user.email}</span>
                             </div>
                         </div>
                         <div className='flex w-full'>

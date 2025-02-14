@@ -21,6 +21,7 @@ function SyncModal({ setSyncModal, setContacts }) {
                 if (!response.ok) throw new Error("Failed to fetch metadata")
                 const data = await response.json()
                 setMetadata(data)
+                console.log(data);
             } catch (err) {
                 setError(err.message)
             } finally {
@@ -120,8 +121,17 @@ function SyncModal({ setSyncModal, setContacts }) {
 
                     <div className={`flex flex-col transition-all duration-300 ${loadingMetadata || error ? "max-h-0 scale-0" : "max-h-[100vh] scale-100"}`}>
                         <div>
-                            <div className={`transition-all duration-300 overflow-hidden ${syncMode ? "max-h-0" : "max-h-10"}`}>
-                                Choose how to sync your contacts
+                            <div className={`transition-all duration-300 overflow-hidden ${syncMode ? "max-h-0" : "max-h-20"}`}>
+                                <p>
+                                    Choose how to sync your contacts
+                                </p>
+                                <p className='text-sm'>Last sync: {metadata && metadata.lastSync ?
+                                    new Date(metadata.lastSync).toLocaleDateString("en-US", {
+                                        year: "numeric",
+                                        month: "short",
+                                        day: "numeric"
+                                    }) : "never"}
+                                </p>
                             </div>
                             <div className={`transition-all duration-300 flex flex-col items-center overflow-hidden ${syncMode ? "max-h-32" : "max-h-0"}`}>
                                 <div className={`transition-all duration-300 overflow-hidden ${syncStatus.success ? "max-h-20" : "max-h-0"}`}>

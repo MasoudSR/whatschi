@@ -50,7 +50,7 @@ function MenuBar({ page, setPage, countryCode, setCountryCode, defaultCountryCod
 
     return (
         <div className="flex flex-col w-full text-white select-none max-w-screen-md m-auto md:p-3 fixed top-0 left-[50%] -translate-x-[50%] z-20">
-            <div className={`bg-green-700 w-full text-center  drop-shadow-sm p-3 shadow-md md:rounded-[1.7rem] md:px-5 transition-all duration-300 overflow-hidden ${isSettingsOpen ? "h-screen md:h-[calc(100vh-26px)]" : "h-14"}`}>
+            <div className={`bg-green-700 w-full text-center  drop-shadow-sm p-3 shadow-md md:rounded-[1.7rem] md:px-5 transition-all duration-300 overflow-hidden ${isSettingsOpen ? "h-dvh md:h-[calc(100vh-26px)]" : "h-14"}`}>
                 <div className='grid grid-cols-3 justify-items-center items-center'>
                     <div className={`justify-self-start flex ${isSettingsOpen ? "cursor-pointer" : ""}`} onClick={() => { isSettingsOpen && settingsBtnHandler() }}>
                         <div className={`transition-all duration-300 overflow-hidden -translate-x-1 ${isSettingsOpen ? "w-4" : "w-0"}`}>

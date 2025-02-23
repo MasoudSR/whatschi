@@ -9,11 +9,6 @@ function AccountMenu({ setContacts, toggleAccountMenu, setToggleAccountMenu }) {
 
     const { status, data: session } = useSession();
     const [syncModal, setSyncModal] = useState(false)
-    const [profileImgLoaded, setProfileImgLoaded] = useState(false)
-
-    const onImageLoad = () => {
-        setProfileImgLoaded(true)
-    }
 
     return (
         <div className={`bg-green-800 rounded-2xl shadow-inner transition-all duration-300 overflow-hidden mt-4 ${toggleAccountMenu ? "max-h-full" : "max-h-14"}`}>

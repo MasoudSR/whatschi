@@ -67,7 +67,7 @@ function Settings({
                 />
             </div>
             <div className='text-[10px] mt-4 text-emerald-200'>
-                <div>WhatsChi v1.3.0</div>
+                <div>WhatsChi v1.3.1</div>
                 <div>Made by Masoud S.Rad</div>
             </div>
         </div>

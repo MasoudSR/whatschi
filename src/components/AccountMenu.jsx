@@ -9,6 +9,11 @@ function AccountMenu({ setContacts, toggleAccountMenu, setToggleAccountMenu }) {
 
     const { status, data: session } = useSession();
     const [syncModal, setSyncModal] = useState(false)
+    const [profileImgLoaded, setProfileImgLoaded] = useState(false)
+
+    const onImageLoad = () => {
+        setProfileImgLoaded(true)
+    }
 
     return (
         <div className={`bg-green-800 rounded-2xl shadow-inner transition-all duration-300 overflow-hidden mt-4 ${toggleAccountMenu ? "max-h-full" : "max-h-14"}`}>
@@ -55,22 +60,22 @@ function AccountMenu({ setContacts, toggleAccountMenu, setToggleAccountMenu }) {
                 {status === "authenticated" &&
                     <div className='p-4 flex flex-col gap-4 w-full'>
                         <div className='flex items-center gap-4'>
-                            {session.user.image ?
-                                <div>
+                            <div className='rounded-full w-14 h-14 bg-white border shadow-sm text-black flex justify-center items-center'>
+                                {session.user.image ?
                                     <Image
                                         src={session?.user?.image}
                                         alt={session?.user?.name}
-                                        width={70}
-                                        height={70}
+                                        width={80}
+                                        height={80}
                                         style={{
                                             objectFit: "cover",
                                             borderRadius: "50%",
                                         }}
                                     />
-                                </div>
-                                :
-                                <div className='rounded-full w-14 h-14 bg-white text-black flex justify-center items-center'>M</div>
-                            }
+                                    :
+                                    session.user.name.charAt(0)
+                                }
+                            </div>
                             <div className='flex flex-col items-start'>
                                 <span>{session.user.name}</span>
                                 <span className='text-gray-200 text-sm'>{session.user.email}</span>

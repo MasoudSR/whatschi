@@ -21,7 +21,6 @@ function SyncModal({ setSyncModal, setContacts }) {
                 if (!response.ok) throw new Error("Failed to fetch metadata")
                 const data = await response.json()
                 setMetadata(data)
-                console.log(data);
             } catch (err) {
                 setError(err.message)
             } finally {
@@ -98,7 +97,7 @@ function SyncModal({ setSyncModal, setContacts }) {
     }
 
     return (
-        <div className={`fixed top-0 left-0 flex justify-center items-center transition-all duration-300 w-full h-full  ${modalOpened ? "backdrop-blur-sm bg-slate-800/40" : " backdrop-blur-0"}`}>
+        <div className={`fixed top-0 left-0 flex justify-center items-center transition-all duration-300 w-full h-full z-30  ${modalOpened ? "backdrop-blur-sm bg-slate-800/40" : " backdrop-blur-0"}`}>
             <div className={`transition-all duration-500 overflow-y-scroll no-scrollbar relative bg-teal-500 rounded-xl text-white max-h-[90%] max-w-[90%] ${modalOpened ? "opacity-100" : "opacity-0 scale-50"}`}>
                 <div className='bg-teal-600 p-4 shadow-md text-xl'>Sync Contacts</div>
                 <button className='absolute top-4 right-3 hover:bg-teal-700 rounded-full p-1' onClick={closeModal}>

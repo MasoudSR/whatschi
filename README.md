@@ -6,10 +6,10 @@ WhatsChi is a web app that lets you open a WhatsApp chat with any phone number �
 
 ## Features:
 
-🟢 Open WhatsApp chats directly by entering a phone number.
-💾 Save and manage your favorite numbers inside the app.
-☁️ Sync contacts to the cloud (optional).
-🔄 Choose between local-only, cloud-only, or merged contact sync.
+🟢 Open WhatsApp chats directly by entering a phone number. <br>
+💾 Save and manage your favorite numbers inside the app.<br>
+☁️ Sync contacts to the cloud (optional).<br>
+🔄 Choose between local-only, cloud-only, or merged contact sync.<br>
 ⚡ Fast, lightweight, and fully usable on web.
 
 ## Technologies Used:

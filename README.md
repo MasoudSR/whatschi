@@ -1,17 +1,29 @@
-# WhatsChi: WhatsApp Contact Manager
+# 📱 WhatsChi: WhatsApp Contact Manager
 
-A simple app for managing and interacting with phone numbers. Users can open a phone number in WhatsApp without saving it to their contacts. Additionally, they can save frequently used numbers for easy access later.
+WhatsChi is a web app that lets you open a WhatsApp chat with any phone number — without saving it to your phone contacts.
 
-## Features
+![WhatsChi Screenshots](./screenshot/screenshots.png)
 
-- Open a phone number in WhatsApp directly.
-- Save and manage phone numbers for future use.
-- Synchronize contacts with the cloud.(soon)
-- Options to keep local data, cloud data, or merge both during synchronization.(soon)
-- Lightweight and user-friendly interface.
+## Features:
 
-## Technologies Used
+🟢 Open WhatsApp chats directly by entering a phone number.
+💾 Save and manage your favorite numbers inside the app.
+☁️ Sync contacts to the cloud (optional).
+🔄 Choose between local-only, cloud-only, or merged contact sync.
+⚡ Fast, lightweight, and fully usable on web.
 
+## Technologies Used:
+
+- Next.js
 - React.js
-- LocalStorage for saving contacts locally.
-- Optional cloud synchronization.
+- MongoDB
+- Mongoose
+- NextAuth.js
+- RESTful API (with Next.js API Routes)
+- nanoid
+- React Icons
+- Tailwind CSS
+
+## 🌐 Try it out
+
+[whatschi.masoudsr.ir](https://whatschi.masoudsr.ir/)

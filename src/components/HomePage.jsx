@@ -54,7 +54,7 @@ function HomePage({ contacts, setContacts, countryCode, setCountryCode }) {
 
         let formattedPhoneNumber = phoneNumber;
         if (phoneNumber.startsWith("0")) {
-            formattedPhoneNumber = phone.slice(1);
+            formattedPhoneNumber = phoneNumber.slice(1);
         }
 
         const phoneNumberRegex = /^\d{9,15}$/;

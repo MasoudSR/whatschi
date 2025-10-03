@@ -184,7 +184,7 @@ function SyncModal({ setSyncModal, setContacts }) {
                                 </div>
                                 <div className='text-center w-full py-2 text-sm bg-teal-700'>
                                     <div className=''>Last Synced {metadata && metadata.lastSync ?
-                                         timeAgo(metadata.lastSync) : "Never"}
+                                        timeAgo(metadata.lastSync) : "Never"}
                                     </div>
                                 </div>
                             </div>
@@ -193,13 +193,16 @@ function SyncModal({ setSyncModal, setContacts }) {
                                 Choose how to sync your contacts
                             </p>
 
-                            <div className='grid grid-cols-3 mt-4 rounded-lg overflow-hidden relative bg-teal-700'>
-                                <button className={`px-2 z-10 transition-all h-14 duration-200 ${syncMode === "local" ? " text-teal-700" : "text-white"}`} onClick={() => { setSyncMode("local") }}>Keep Local</button>
+                            <div className='grid grid-cols-3 mt-4 rounded-lg overflow-hidden bg-teal-700'>
+                                <button className={`px-2 transition-all h-14 relative duration-200 ${syncMode === "local" ? " text-teal-700" : "text-white"}`} onClick={() => { setSyncMode("local") }}>
+                                    <p className='relative z-20'>
+                                        Keep Local
+                                    </p>
+                                    <div className={`absolute left-1 top-1 bottom-1 right-1 rounded-md bg-white z-0 transition-all duration-300 ${syncMode === "cloud" && "translate-x-[calc(100%+8px)]"}  ${syncMode === "merge" && "translate-x-[calc(200%+16px)]"}`}></div>
+                                </button>
                                 <button className={`px-2 z-10 transition-all duration-200 ${syncMode === "cloud" ? " text-teal-700" : "text-white"}`} onClick={() => { setSyncMode("cloud") }}>Keep Cloud</button>
                                 <button className={`px-2 z-10 transition-all duration-200 ${syncMode === "merge" ? " text-teal-700" : "text-white"}`} onClick={() => { setSyncMode("merge") }}>Merge</button>
-                                <div className={`absolute left-1 top-1 w-[32%] rounded-md h-12 bg-white z-0 transition-all duration-300 ${syncMode === "cloud" && "translate-x-[103%]"}  ${syncMode === "merge" && "translate-x-[206%]"}`}></div>
                             </div>
-
                             <button className='border w-full border-teal-700 bg-teal-600 rounded-lg mt-5 p-3' onClick={() => syncContacts(syncMode)} disabled={syncInProgress || loadingMetadata || error}>Sync Now</button>
 
                         </div>

@@ -119,7 +119,7 @@ function ContactCard({ contact, removeHandler, editHandler }) {
             <div className={`overflow-hidden transition-all duration-300`}>
                 <div className=" p-3 flex gap-2 justify-between">
 
-                    <a href={contact.link} target="_blank" className='w-full flex justify-center gap-1 p-3 shadow-sm shadow-green-300 rounded-[2rem] bg-green-500 text-white text-center'>
+                    <a href={`https://wa.me/${contact.number}`} target="_blank" className='w-full flex justify-center gap-1 p-3 shadow-sm shadow-green-300 rounded-[2rem] bg-green-500 text-white text-center'>
                         <span>Open</span>
                         <span className={`transition-all duration-300 ${showRemoveConfirm ? "scale-0 max-w-0" : "scale-100 max-w-36"}`}>WhatsApp</span>
                         <FaWhatsapp size={20} />

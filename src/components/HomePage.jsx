@@ -66,7 +66,7 @@ function HomePage({ contacts, setContacts, countryCode, setCountryCode }) {
 
         const formattedNumber = formattedCountryCode + formattedPhoneNumber;
 
-        const link = `https://wa.me/${formattedNumber}`;
+        // const link = `https://wa.me/${formattedNumber}`;
 
         document.activeElement.blur();
 
@@ -75,7 +75,7 @@ function HomePage({ contacts, setContacts, countryCode, setCountryCode }) {
             setContactDetails(existContact);
             setSaveStatus("remove");
         } else {
-            setContactDetails({ name: formattedNumber, number: formattedNumber, link: link });
+            setContactDetails({ name: formattedNumber, number: formattedNumber });
             setSaveStatus("add");
         }
     };
@@ -112,7 +112,7 @@ function HomePage({ contacts, setContacts, countryCode, setCountryCode }) {
         <div className="flex flex-col h-screen overflow-x-hidden items-center gap-14 p-3 pt-36 pb-16 w-screen">
             <Image src="/logo.png" alt='logo' width={150} height={150} className="pointer-events-none drop-shadow select-none" />
             <div className="card w-full max-w-screen-sm">
-                <div className={`card__content relative transition-transform duration-1000 h-[185px] ${contactDetails.link && "flip"}`}>
+                <div className={`card__content relative transition-transform duration-1000 h-[185px] ${contactDetails.number && "flip"}`}>
                     <form onSubmit={numberHandler} className="rounded-3xl border border-gray-200 shadow-2xl shadow-green-300 w-full max-w-screen-sm bg-white card__front absolute top-0 bottom-0 right-0 left-0">
                         <div className='p-4 border-b border-[#F4F4F4] w-full'>
                             <p className="self-start text-gray-700 text-sm p-3 pt-0">Enter Phone Number</p>
@@ -153,7 +153,7 @@ function HomePage({ contacts, setContacts, countryCode, setCountryCode }) {
 
                     <div className="flex flex-col rounded-3xl border border-gray-200 shadow-2xl shadow-green-300 w-full max-w-screen-sm bg-white card__back absolute top-0 bottom-0 right-0 left-0">
                         <div className='p-4 border-b gap-2 border-[#F4F4F4] w-full flex items-center h-full'>
-                            <button className='p-1' onClick={() => { setContactDetails({ ...contactDetails, link: "" }) }}><IoChevronBack size={20} /></button>
+                            <button className='p-1' onClick={() => { setContactDetails({}) }}><IoChevronBack size={20} /></button>
                             <div className='rounded-full w-[50px] h-[50px] bg-gray-100 border border-gray-200 flex justify-center items-center'>{contactDetails.name?.charAt(0) === '+'
                                 ? contactDetails.name?.charAt(contactDetails.name.length - 1)
                                 : contactDetails.name?.charAt(0)}</div>
@@ -164,7 +164,7 @@ function HomePage({ contacts, setContacts, countryCode, setCountryCode }) {
                         </div>
                         <div className='px-5 py-4 w-full flex justify-between gap-4'>
 
-                            <a href={contactDetails.link} target="_blank" className='w-full p-3 shadow-sm shadow-green-300 rounded-[2rem] bg-green-500 text-white'>
+                            <a href={`https://wa.me/${contactDetails.number}`} target="_blank" className='w-full p-3 shadow-sm shadow-green-300 rounded-[2rem] bg-green-500 text-white'>
                                 <button className='flex justify-center items-center m-auto gap-1'>Open WhatsApp<FaWhatsapp size={20} /></button>
                             </a>
                             <button onClick={handleContactAction} className='border w-16 rounded-2xl relative'>

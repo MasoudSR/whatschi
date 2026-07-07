@@ -9,25 +9,46 @@ export async function GET() {
 		return Response.json({ error: "Unauthorized" }, { status: 401 });
 	}
 
-	const email = session.user.email;
+	const email = session.user?.email;
+
+	if (!email) {
+		return Response.json({ error: "Unauthorized" }, { status: 401 });
+	}
 
 	try {
 		await connectMongoDB();
+
+		const user = await User.findOneAndUpdate(
+			{ email },
+			{
+				$set: {
+					"data.lastSync": new Date(),
+				},
+			},
+			{
+				new: true,
+				projection: {
+					"data.contacts": 1,
+					"data.updatedAt": 1,
+				},
+			},
+		);
+
+		if (!user) {
+			return Response.json({ error: "User not found" }, { status: 404 });
+		}
+
+		return Response.json({
+			success: true,
+			message: "Local contacts successfully replaced with cloud data.",
+			data: {
+				updatedAt: user.data.updatedAt,
+				contacts: user.data.contacts,
+			},
+		});
 	} catch (error) {
-		return Response.json({ error: "internal server error" }, { status: 500 });
+		console.error(error);
+
+		return Response.json({ error: "Internal server error" }, { status: 500 });
 	}
-
-	const user = await User.findOne({ email: email });
-
-	const date = new Date();
-
-	user.data.lastSync = date.toISOString();
-
-	await user.save();
-
-	return Response.json({
-		success: true,
-		message: "Local contacts successfully replaced with cloud data.",
-		data: { updatedAt: user.data.updatedAt, contacts: user.data.contacts },
-	});
 }

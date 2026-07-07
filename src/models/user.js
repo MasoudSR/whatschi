@@ -13,9 +13,18 @@ const userSchema = new Schema({
 		type: String,
 	},
 	data: {
-		updatedAt: { type: String, default: null },
-		lastSync: { type: String, default: null },
-		contacts: [],
+		updatedAt: { type: Date, default: null },
+		lastSync: { type: Date, default: null },
+		contacts: {
+			type: [
+				{
+					name: { type: String },
+					number: { type: String, required: true },
+					color: { type: String, default: "gray" },
+				},
+			],
+			default: [],
+		},
 	},
 });
 

@@ -56,7 +56,7 @@ function AccountMenu({ setContacts, toggleAccountMenu, setToggleAccountMenu }) {
                     <div className='p-4 flex flex-col gap-4 w-full'>
                         <div className='flex items-center gap-4'>
                             <div className='rounded-full w-14 h-14 bg-white border shadow-sm text-black flex justify-center items-center'>
-                                {session.user.image ?
+                                {session?.user?.image ?
                                     <Image
                                         src={session?.user?.image}
                                         alt={session?.user?.name}
@@ -68,12 +68,12 @@ function AccountMenu({ setContacts, toggleAccountMenu, setToggleAccountMenu }) {
                                         }}
                                     />
                                     :
-                                    session.user.name.charAt(0)
+                                    session?.user?.name?.charAt(0)
                                 }
                             </div>
                             <div className='flex flex-col items-start'>
-                                <span>{session.user.name}</span>
-                                <span className='text-gray-200 text-sm'>{session.user.email}</span>
+                                <span>{session?.user?.name}</span>
+                                <span className='text-gray-200 text-sm'>{session?.user?.email}</span>
                             </div>
                         </div>
                         <div className='flex w-full'>
